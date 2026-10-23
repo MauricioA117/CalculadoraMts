@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Sistema visual: "hoja de prueba de imprenta"
+   - Claro por defecto (papel frío + tinta índigo), oscuro opcional.
+   - Un solo acento: Indigo (el color de la prensa).
+   - Firma visual: la tira de control CMYK bajo el encabezado.
+   Los componentes usan `text-white`, `bg-white/5`, `border-white/10`, etc.
+   Aquí `white` se redefine como "color de tinta" del tema activo, de modo
+   que el mismo markup funciona en claro y en oscuro.
+   ------------------------------------------------------------------ */
+
+@theme {
+  --font-sans: 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-display: 'Archivo', system-ui, sans-serif;
+
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-raised: var(--c-raised);
+  --color-sunken: var(--c-sunken);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+
+  --color-white: var(--c-ink);
+  --color-black: var(--c-wash);
+
+  /* Colores de estado: se reasignan por tema para mantener contraste */
+  --color-emerald-200: var(--c-ok-200);
+  --color-emerald-300: var(--c-ok-300);
+  --color-emerald-400: var(--c-ok-400);
+  --color-emerald-500: var(--c-ok-500);
+  --color-emerald-800: var(--c-ok-500);
+  --color-emerald-950: var(--c-ok-500);
+  --color-teal-300: var(--c-ok-300);
+  --color-teal-400: var(--c-ok-400);
+
+  --color-rose-200: var(--c-bad-200);
+  --color-rose-300: var(--c-bad-300);
+  --color-rose-400: var(--c-bad-400);
+  --color-rose-500: var(--c-bad-500);
+  --color-red-300: var(--c-bad-300);
+  --color-red-400: var(--c-bad-400);
+  --color-red-500: var(--c-bad-500);
+  --color-red-950: var(--c-bad-500);
+
+  --color-amber-200: var(--c-warn-200);
+  --color-amber-300: var(--c-warn-300);
+  --color-amber-400: var(--c-warn-400);
+  --color-amber-500: var(--c-warn-500);
+
+  --color-sky-300: var(--c-info-300);
+  --color-sky-400: var(--c-info-400);
+  --color-sky-500: var(--c-info-500);
+  --color-sky-950: var(--c-info-500);
+  --color-blue-400: var(--c-info-400);
+
+  --color-purple-100: var(--c-vio-100);
+  --color-purple-200: var(--c-vio-200);
+  --color-purple-300: var(--c-vio-300);
+  --color-purple-400: var(--c-vio-400);
+  --color-purple-500: var(--c-vio-500);
+  --color-purple-950: var(--c-vio-500);
+}
+
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+  --c-bg: #eceef6;
+  --c-surface: #ffffff;
+  --c-raised: #f5f6fb;
+  --c-sunken: #e4e7f2;
+  --c-ink: #15172e;
+  --c-wash: #c4c9e0;          /* base de bg-black/NN: pozos hundidos sutiles */
+  --c-accent: #4a3fd6;
+  --c-accent-ink: #4a3fd6;
+  --c-on-accent: #ffffff;
+  --c-line: rgba(21, 23, 46, 0.12);
+
+  --c-ok-200: #0a5c3b;  --c-ok-300: #0b6b45;  --c-ok-400: #0e7a4e;  --c-ok-500: #14a06a;
+  --c-bad-200: #8a1a33; --c-bad-300: #a3203c; --c-bad-400: #c0243f; --c-bad-500: #e0415c;
+  --c-warn-200: #7a4300; --c-warn-300: #8f4e00; --c-warn-400: #a05800; --c-warn-500: #d98a00;
+  --c-info-300: #0a5f90; --c-info-400: #0b6fa8; --c-info-500: #1a95d4;
+  --c-vio-100: #4b2288; --c-vio-200: #5b2aa0; --c-vio-300: #6a32b8; --c-vio-400: #7a3fd1; --c-vio-500: #8d5de0;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --c-bg: #0f1226;
+  --c-surface: #171a36;
+  --c-raised: #1f2347;
+  --c-sunken: #0b0d1d;
+  --c-ink: #eef0ff;
+  --c-wash: #000000;
+  --c-accent: #5b57f0;
+  --c-accent-ink: #aab0ff;
+  --c-on-accent: #ffffff;
+  --c-line: rgba(238, 240, 255, 0.12);
+
+  --c-ok-200: #a7f3d0;  --c-ok-300: #6ee7b7;  --c-ok-400: #34d399;  --c-ok-500: #10b981;
+  --c-bad-200: #fecdd3; --c-bad-300: #fda4af; --c-bad-400: #fb7185; --c-bad-500: #f43f5e;
+  --c-warn-200: #fde68a; --c-warn-300: #fcd34d; --c-warn-400: #fbbf24; --c-warn-500: #f59e0b;
+  --c-info-300: #7dd3fc; --c-info-400: #38bdf8; --c-info-500: #0ea5e9;
+  --c-vio-100: #ede9fe; --c-vio-200: #ddd6fe; --c-vio-300: #c4b5fd; --c-vio-400: #a78bfa; --c-vio-500: #8b5cf6;
+}
+
+@layer base {
+  html { scroll-padding-top: 5.5rem; }
+
+  body {
+    background-color: var(--c-bg);
+    color: var(--c-ink);
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+    font-weight: 650;
+  }
+
+  code, kbd, samp, pre, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Foco visible para uso con teclado */
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Texto sobre fondos de acento: siempre claro, sin importar el tema */
+.bg-accent.text-white,
+.bg-accent .text-white,
+.btn-accent {
+  color: var(--c-on-accent);
+}
+
+/* Etiqueta de campo / sección */
+.meta-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--c-ink) 68%, transparent);
+  display: block;
+}
+
+.card-dark {
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: 10px;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--c-ink) 4%, transparent);
+}
+
+.card-dark-elevated {
+  background-color: var(--c-raised);
+  border: 1px solid var(--c-line);
+  border-radius: 8px;
+}
+
+.btn-accent {
+  background-color: var(--c-accent);
+  font-family: var(--font-sans);
+  border-radius: 8px;
+  font-weight: 650;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+}
+.btn-accent:hover { background-color: color-mix(in srgb, var(--c-accent) 88%, black); }
+.btn-accent:active { transform: translateY(1px); }
+
+.btn-dark-secondary {
+  background-color: var(--c-surface);
+  color: var(--c-ink);
+  border: 1px solid var(--c-line);
+  font-family: var(--font-sans);
+  font-weight: 550;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-dark-secondary:hover {
+  background-color: var(--c-raised);
+  border-color: color-mix(in srgb, var(--c-ink) 30%, transparent);
+}
+
+.input-dark {
+  background: var(--c-surface);
+  border: 1px solid color-mix(in srgb, var(--c-ink) 22%, transparent);
+  color: var(--c-ink);
+  font-family: var(--font-mono);
+  border-radius: 8px;
+  min-height: 2.5rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.input-dark:hover { border-color: color-mix(in srgb, var(--c-ink) 40%, transparent); }
+.input-dark:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-accent) 28%, transparent);
+}
+select.input-dark option { background: var(--c-surface); color: var(--c-ink); }
+
+/* Tira de control CMYK: la firma visual de la app */
+.cmyk-strip {
+  height: 4px;
+  background: linear-gradient(90deg,
+    #00a9e0 0 25%,
+    #e6007e 25% 50%,
+    #ffd800 50% 75%,
+    #15172e 75% 100%);
+}
+:root[data-theme="dark"] .cmyk-strip {
+  background: linear-gradient(90deg,
+    #00a9e0 0 25%,
+    #e6007e 25% 50%,
+    #ffd800 50% 75%,
+    #eef0ff 75% 100%);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--c-ink) 22%, transparent);
+  border-radius: 6px;
+  border: 2px solid var(--c-bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--c-accent); }

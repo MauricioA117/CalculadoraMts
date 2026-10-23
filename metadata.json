@@ -1,0 +1,8 @@
+{
+  "name": "Calculadora de MTs",
+  "description": "Calculadora de ingeniería de producción, metros a laminar en LDPE (CE-21, MCE-25) con control de stock y faltantes, lotes de bobinas con merma (76 cm), bobina individual e imposición en frame HP Indigo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
