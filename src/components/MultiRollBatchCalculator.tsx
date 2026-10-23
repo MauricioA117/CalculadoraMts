@@ -116,9 +116,9 @@ export const MultiRollBatchCalculator: React.FC<MultiRollBatchCalculatorProps> =
         const mat = resultadoCotizacionPrensa.desgloseMateriales?.find(d => !d.esTinta && !d.esAdhesivo);
         if (mat) {
           setNombreMaterial(mat.nombre ?? 'BOPP MATE');
-          setDensidad(mat.densidad ?? 0.91);
-          setMicras(mat.micras ?? 20);
           const foundMat = CATALOGO_MATERIALES.find(m => m.nombre.toLowerCase() === (mat.nombre ?? '').toLowerCase());
+          setDensidad(foundMat?.densidad ?? 0.91);
+          setMicras(foundMat?.micrasTipicas ?? 20);
           if (foundMat) setPresetSeleccionado(foundMat.nombre);
         }
       }
@@ -255,7 +255,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
               title="Importar metros lineales y ancho de la Calculadora de Prensa HP"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Importar de Prensa ({resultadoCotizacionPrensa.metrosLinealesRequeridos} ML)</span>
+              <span>Importar de Prensa ({resultadoCotizacionPrensa.produccion?.metrosLineales} ML)</span>
             </button>
           )}
 

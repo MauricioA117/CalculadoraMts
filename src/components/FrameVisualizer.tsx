@@ -33,7 +33,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
 }) => {
   const [showGuides, setShowGuides] = useState<boolean>(true);
 
-  const { repEje, repDesarrollo, piezasPorFrame, medidaBobinaImpresa } = resultado.acomodo;
+  const { repEje, repDesarrollo, piezasPorFrame, medidaBobinaImpresa, separacionCarrilCm } = resultado.acomodo;
   const { merma } = resultado;
 
   const anchoFrameMax = (typeof anchoFrame === 'number' && anchoFrame > 0) 
@@ -55,8 +55,9 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
   const areaUtilPzas = piezasPorFrame * anchoEmpaque * altoEmpaque;
   const areaEficienciaPct = areaTotalFrame > 0 ? (areaUtilPzas / areaTotalFrame) * 100 : 0;
 
-  // Waste calculations
-  const sobranteBobinaNatural = Number((bobinaNatural - medidaBobinaImpresa).toFixed(2));
+  // Waste calculations: banda centrada, refile repartido en ambas orillas
+  const sobranteBobinaNatural = merma.sobranteAnchoCm;
+  const refilePorLado = merma.refilePorLadoCm;
 
   // SVG dimensions for responsive canvas based on raw roll width & frame height
   const svgWidth = 340;
@@ -64,6 +65,11 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
 
   const scaleX = svgWidth / Math.max(1, bobinaNatural);
   const scaleY = svgHeight / Math.max(1, altoFrameMax);
+
+  // Posiciones X centradas sobre la bobina
+  const bandaX = 20 + refilePorLado * scaleX;
+  const frameX = 20 + Math.max(0, (bobinaNatural - anchoFrameMax) / 2) * scaleX;
+  const refileW = refilePorLado * scaleX;
 
   return (
     <div id="frame-visualizer-container" className="card-dark p-5 space-y-6">
@@ -82,7 +88,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Quick reset to standard 74.6 x 112 cm */}
+          {/* Quick reset to standard 74.5 x 112.5 cm */}
           {(onAnchoFrameChange || onAltoFrameChange) && (
             <button
               type="button"
@@ -91,7 +97,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
                 onAltoFrameChange?.(FRAME_MAX_ALTO);
               }}
               className="p-1.5 rounded bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 text-xs flex items-center gap-1 cursor-pointer"
-              title="Restablecer Frame a HP Indigo 20000/25K (74.6 × 112 cm)"
+              title={`Restablecer Frame a HP Indigo 20000/25K (${FRAME_MAX_ANCHO} × ${FRAME_MAX_ALTO} cm)`}
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span className="text-xs hidden sm:inline">HP Indigo Std</span>
@@ -268,7 +274,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
 
               {/* Max printable printable window boundary */}
               <rect
-                x="20"
+                x={frameX}
                 y="15"
                 width={anchoFrameMax * scaleX}
                 height={altoFrameMax * scaleY}
@@ -280,7 +286,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
 
               {/* Active Printed Area */}
               <rect
-                x="20"
+                x={bandaX}
                 y="15"
                 width={medidaBobinaImpresa * scaleX}
                 height={altoAprovechadoCm * scaleY}
@@ -292,7 +298,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
               {/* Repetitions grid rendering */}
               {Array.from({ length: repEje }).map((_, i) =>
                 Array.from({ length: repDesarrollo }).map((_, j) => {
-                  const pX = 20 + i * (anchoEmpaque * scaleX);
+                  const pX = bandaX + i * ((anchoEmpaque + separacionCarrilCm) * scaleX);
                   const pY = 15 + j * (altoEmpaque * scaleY);
                   const pW = anchoEmpaque * scaleX;
                   const pH = altoEmpaque * scaleY;
@@ -327,12 +333,12 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
               )}
 
               {/* Lateral Raw Roll Slit Waste Area */}
-              {sobranteBobinaNatural > 0 && (
-                <g>
+              {refilePorLado > 0 && [20, bandaX + medidaBobinaImpresa * scaleX].map((x, k) => (
+                <g key={`refile-${k}`}>
                   <rect
-                    x={20 + medidaBobinaImpresa * scaleX}
+                    x={x}
                     y="15"
-                    width={sobranteBobinaNatural * scaleX}
+                    width={refileW}
                     height={svgHeight}
                     fill="url(#diagonalHatch)"
                     stroke="var(--c-bad-500)"
@@ -340,19 +346,19 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
                     strokeDasharray="3 2"
                   />
                   <text
-                    x={20 + medidaBobinaImpresa * scaleX + (sobranteBobinaNatural * scaleX) / 2}
+                    x={x + refileW / 2 + 3}
                     y={svgHeight / 2 + 15}
                     fill="var(--c-bad-500)"
                     fontSize="9"
                     fontFamily="JetBrains Mono, monospace"
                     fontWeight="bold"
                     textAnchor="middle"
-                    transform={`rotate(-90 ${20 + medidaBobinaImpresa * scaleX + (sobranteBobinaNatural * scaleX) / 2} ${svgHeight / 2 + 15})`}
+                    transform={`rotate(-90 ${x + refileW / 2 + 3} ${svgHeight / 2 + 15})`}
                   >
-                    REFILE: {sobranteBobinaNatural} CM
+                    REFILE: {refilePorLado} CM
                   </text>
                 </g>
-              )}
+              ))}
             </svg>
           </div>
 
@@ -363,7 +369,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
             </span>
             <span className="flex items-center gap-1.5 text-red-400">
               <span className="w-2.5 h-2.5 rounded-sm bg-red-500/40 border border-red-500"></span>
-              <span>Refile: {sobranteBobinaNatural} cm ({merma.sobranteAnchoPct}%)</span>
+              <span>Refile: {refilePorLado} cm × 2 lados ({merma.sobranteAnchoPct}% merma)</span>
             </span>
           </div>
         </div>
@@ -384,7 +390,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
               <div className="p-2.5 rounded bg-white/[0.03] border border-white/5">
                 <span className="text-xs text-white/55 block">Repeticiones en Eje</span>
                 <span className="font-display text-lg font-bold text-white">{repEje} pistas</span>
-                <span className="text-xs text-white/55 block">({(repEje * anchoEmpaque).toFixed(1)} cm ancho)</span>
+                <span className="text-xs text-white/55 block">({medidaBobinaImpresa} cm ancho, sep. {separacionCarrilCm} cm)</span>
               </div>
 
               <div className="p-2.5 rounded bg-white/[0.03] border border-white/5">

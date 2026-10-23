@@ -148,7 +148,10 @@ export interface ResultadoCotizacion {
     repEje: number;
     repDesarrollo: number;
     piezasPorFrame: number;
-    medidaBobinaImpresa: number; // cm
+    medidaBobinaImpresa: number; // cm, banda impresa incluyendo separaciones
+    anchoUtilProducto: number; // cm, repEje × anchoEmpaque
+    separacionCarrilCm: number; // cm entre carriles
+    separacionesTotalCm: number; // (repEje - 1) × separación
     anchoFrame: number; // cm
     altoFrame: number;  // cm
   };
@@ -174,7 +177,8 @@ export interface ResultadoCotizacion {
   };
   merma: {
     anchoBobinaNatural: number; // cm (default 76.0 cm)
-    sobranteAnchoCm: number;    // 76 - medidaBobinaImpresa
+    sobranteAnchoCm: number;    // 76 - anchoUtilProducto (refile + separaciones)
+    refilePorLadoCm: number;    // (76 - medidaBobinaImpresa) / 2, banda centrada
     sobranteAnchoPct: number;   // (sobrante / 76) * 100
     areaDesperdicioM2: number;  // m2
     kgDesperdicioSustrato: number;   // kg sustrato impresion
@@ -192,8 +196,9 @@ export interface ResultadoCotizacion {
 }
 
 // Constantes físicas del equipo (HP Indigo 20000/25K) y bobina natural
-export const FRAME_MAX_ANCHO = 74.6; // cm
-export const FRAME_MAX_ALTO = 112.0; // cm
+export const FRAME_MAX_ANCHO = 74.5; // cm
+export const FRAME_MAX_ALTO = 112.5; // cm
+export const SEPARACION_CARRILES_CM = 0.1; // cm entre cada carril (repetición al eje)
 export const ANCHO_BOBINA_NATURAL_DEFAULT = 76.0; // cm
 export const GRAMAJE_TINTA_FIJO = 2.0; // g/m² fijo siempre en digital
 export const GRAMAJE_ADHESIVO_POR_LAMINACION = 2.0; // g/m² fijo por cada interfaz de laminación
@@ -210,30 +215,9 @@ export const PRESETS_FRAME: PresetFrame[] = [
   {
     id: 'hp20000_25k',
     nombre: 'HP Indigo 20000 / 25K',
-    ancho: 74.6,
-    alto: 112.0,
-    descripcion: 'Estándar empaque flexible (74.6 × 112 cm)'
-  },
-  {
-    id: 'hp20000_compacto',
-    nombre: 'HP Indigo 20000 (Desarrollo 100 cm)',
-    ancho: 74.6,
-    alto: 100.0,
-    descripcion: 'Paso reducido a 1.0 m'
-  },
-  {
-    id: 'hp6k_ws6800',
-    nombre: 'HP Indigo 6K / WS6800',
-    ancho: 32.0,
-    alto: 98.0,
-    descripcion: 'Banda angosta para etiquetas / pouches (32 × 98 cm)'
-  },
-  {
-    id: 'hp100k_b2',
-    nombre: 'Formato B2 Pliego',
-    ancho: 75.0,
-    alto: 53.0,
-    descripcion: 'Pliego B2 comercial/plegadiza (75 × 53 cm)'
+    ancho: FRAME_MAX_ANCHO,
+    alto: FRAME_MAX_ALTO,
+    descripcion: 'Estándar empaque flexible (74.5 × 112.5 cm)'
   }
 ];
 
@@ -271,10 +255,17 @@ export function calcularIngenieriaEmpaque(
     : FRAME_MAX_ALTO;
 
   // 1. CÁLCULO DEL FRAME (ACOMODO)
-  const repEje = anchoEmpaque > 0 ? Math.floor(anchoFrameVal / anchoEmpaque + 1e-9) : 0;
+  // Cada carril al eje lleva una separación: n·ancho + (n-1)·sep ≤ frame
+  const repEje = anchoEmpaque > 0
+    ? Math.floor((anchoFrameVal + SEPARACION_CARRILES_CM) / (anchoEmpaque + SEPARACION_CARRILES_CM) + 1e-9)
+    : 0;
   const repDesarrollo = altoEmpaque > 0 ? Math.floor(altoFrameVal / altoEmpaque + 1e-9) : 0;
   const piezasPorFrame = repEje * repDesarrollo;
-  const medidaBobinaImpresa = anchoEmpaque * repEje;
+  // Ancho de producto (sin separaciones): rige la conversión kg -> ML
+  const anchoUtilProducto = anchoEmpaque * repEje;
+  const separacionesTotalCm = Math.max(0, repEje - 1) * SEPARACION_CARRILES_CM;
+  // Banda impresa completa (producto + separaciones), centrada en la bobina
+  const medidaBobinaImpresa = anchoUtilProducto + separacionesTotalCm;
 
   // 2. ESTRUCTURA DE MATERIALES (PESOS)
   const numCapasSustrato = Math.max(1, capas.length);
@@ -324,8 +315,8 @@ export function calcularIngenieriaEmpaque(
   // ML = (Kg_totales * 1000) / (Gramaje_estructura * Ancho_impreso_en_metros)
   // (equivale a pasar por el sustrato de impresión, donde el porcentaje se cancela)
   let metrosLineales = 0;
-  if (gramajeEstructuraTotal > 0 && medidaBobinaImpresa > 0) {
-    metrosLineales = (totalKilos * 1000) / (gramajeEstructuraTotal * (medidaBobinaImpresa / 100));
+  if (gramajeEstructuraTotal > 0 && anchoUtilProducto > 0) {
+    metrosLineales = (totalKilos * 1000) / (gramajeEstructuraTotal * (anchoUtilProducto / 100));
   }
   const metrosLinealesEntero = Math.round(metrosLineales);
 
@@ -417,8 +408,11 @@ export function calcularIngenieriaEmpaque(
   });
 
   // 5. CÁLCULO DE MERMA Y DESPERDICIO LATERAL (BOBINA NATURAL 76 CM)
+  // La banda impresa se centra: el refile se reparte en ambas orillas.
+  // La merma total incluye además las separaciones entre carriles.
   const bobinaNatural = Math.max(medidaBobinaImpresa, anchoBobinaNatural || ANCHO_BOBINA_NATURAL_DEFAULT);
-  const sobranteAnchoCm = Math.max(0, Number((bobinaNatural - medidaBobinaImpresa).toFixed(2)));
+  const refilePorLadoCm = Math.max(0, Number(((bobinaNatural - medidaBobinaImpresa) / 2).toFixed(2)));
+  const sobranteAnchoCm = Math.max(0, Number((bobinaNatural - anchoUtilProducto).toFixed(2)));
   const sobranteAnchoPct = bobinaNatural > 0 ? Number(((sobranteAnchoCm / bobinaNatural) * 100).toFixed(2)) : 0;
   
   // Área en m2 del refile lateral
@@ -454,6 +448,9 @@ export function calcularIngenieriaEmpaque(
       repDesarrollo,
       piezasPorFrame,
       medidaBobinaImpresa: Number(medidaBobinaImpresa.toFixed(2)),
+      anchoUtilProducto: Number(anchoUtilProducto.toFixed(2)),
+      separacionCarrilCm: SEPARACION_CARRILES_CM,
+      separacionesTotalCm: Number(separacionesTotalCm.toFixed(2)),
       anchoFrame: anchoFrameVal,
       altoFrame: altoFrameVal
     },
@@ -480,6 +477,7 @@ export function calcularIngenieriaEmpaque(
     merma: {
       anchoBobinaNatural: Number(bobinaNatural.toFixed(2)),
       sobranteAnchoCm,
+      refilePorLadoCm,
       sobranteAnchoPct,
       areaDesperdicioM2,
       kgDesperdicioSustrato,

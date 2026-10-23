@@ -96,8 +96,8 @@ export default function App() {
   const [kilosSolicitados, setKilosSolicitados] = useState<number>(250);
   const [tolerancia, setTolerancia] = useState<number>(0.10); // 10% default
   const [anchoBobinaNatural, setAnchoBobinaNatural] = useState<number>(76.0); // 76 cm default
-  const [anchoFrame, setAnchoFrame] = useState<number>(FRAME_MAX_ANCHO); // 74.6 cm default
-  const [altoFrame, setAltoFrame] = useState<number>(FRAME_MAX_ALTO);     // 112.0 cm default
+  const [anchoFrame, setAnchoFrame] = useState<number>(FRAME_MAX_ANCHO); // 74.5 cm default
+  const [altoFrame, setAltoFrame] = useState<number>(FRAME_MAX_ALTO);     // 112.5 cm default
 
   // Input parameters for Bobina Individual calculation
   const [anchoBobinaIndividual, setAnchoBobinaIndividual] = useState<number>(30.0); // cm

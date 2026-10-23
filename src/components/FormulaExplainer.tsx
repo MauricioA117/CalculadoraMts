@@ -67,10 +67,11 @@ export const FormulaExplainer: React.FC<FormulaExplainerProps> = ({ params, resu
               Ancho útil del Frame: <strong className="text-white">{anchoFrameActivo} cm</strong> | Desarrollo útil: <strong className="text-white">{altoFrameActivo} cm</strong>
             </p>
             <div className="bg-white/5 p-2 rounded text-white/80 space-y-1">
-              <div>Rep. Eje (Pistas) = floor({anchoFrameActivo} / {anchoEmpaque}) = <strong className="text-white">{acomodo.repEje} pistas</strong></div>
+              <div>Rep. Eje (Pistas) = floor(({anchoFrameActivo} + {acomodo.separacionCarrilCm}) / ({anchoEmpaque} + {acomodo.separacionCarrilCm})) = <strong className="text-white">{acomodo.repEje} pistas</strong></div>
               <div>Rep. Desarrollo (Filas) = floor({altoFrameActivo} / {altoEmpaque}) = <strong className="text-white">{acomodo.repDesarrollo} filas</strong></div>
               <div>Piezas / Frame = {acomodo.repEje} × {acomodo.repDesarrollo} = <strong className="text-accent-ink">{acomodo.piezasPorFrame} piezas</strong></div>
-              <div>Bobina Impresa = {acomodo.repEje} × {anchoEmpaque} = <strong className="text-white">{acomodo.medidaBobinaImpresa} cm</strong></div>
+              <div>Bobina Impresa = {acomodo.repEje} × {anchoEmpaque} + {Math.max(0, acomodo.repEje - 1)} × {acomodo.separacionCarrilCm} = <strong className="text-white">{acomodo.medidaBobinaImpresa} cm</strong></div>
+              <div>Refile por lado = ({resultado.merma.anchoBobinaNatural} − {acomodo.medidaBobinaImpresa}) / 2 = <strong className="text-white">{resultado.merma.refilePorLadoCm} cm</strong></div>
             </div>
           </div>
 
@@ -91,7 +92,7 @@ export const FormulaExplainer: React.FC<FormulaExplainerProps> = ({ params, resu
               <span>3. Metros Lineales (Rige Sustrato de Impresión)</span>
             </div>
             <div className="bg-white/5 p-2 rounded text-white/80 space-y-1">
-              <div>ML = (Kg Sustrato Impresión × 1000) / [ Gramaje Sustrato × (Bobina Impresa cm / 100) ]</div>
+              <div>ML = (Kg Sustrato Impresión × 1000) / [ Gramaje Sustrato × (Ancho Útil Producto {acomodo.anchoUtilProducto} cm / 100) ]</div>
               <div className="text-accent-ink font-bold">= {produccion.metrosLineales.toLocaleString()} ML</div>
             </div>
           </div>

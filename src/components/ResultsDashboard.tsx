@@ -63,15 +63,17 @@ export const ResultsDashboard: React.FC<ResultsDashboardProps> = ({ params, resu
   • Total Kilos Netos: ${totalKilos.toLocaleString()} kg
 
 🖨️ ACOMODO EN PRENSA (HP Indigo):
-  • Frame Útil: ${acomodo.anchoFrame || 74.6} cm ancho × ${acomodo.altoFrame || 112.0} cm desarrollo
+  • Frame Útil: ${acomodo.anchoFrame} cm ancho × ${acomodo.altoFrame} cm desarrollo
   • Pistas (Eje): ${acomodo.repEje}
   • Filas (Desarrollo): ${acomodo.repDesarrollo}
   • Piezas por Frame: ${acomodo.piezasPorFrame} pzas
-  • Medida de Bobina Impresa: ${acomodo.medidaBobinaImpresa} cm
+  • Separación entre Carriles: ${acomodo.separacionCarrilCm} cm
+  • Medida de Bobina Impresa: ${acomodo.medidaBobinaImpresa} cm (centrada)
   • Bobina Entrada: ${merma.anchoBobinaNatural} cm
 
 🗑️ REFILE Y MERMA LATERAL:
-  • Refile Lateral: ${merma.sobranteAnchoCm} cm (${merma.sobranteAnchoPct}%)
+  • Refile por Lado: ${merma.refilePorLadoCm} cm × 2 orillas
+  • Merma Total de Ancho: ${merma.sobranteAnchoCm} cm (${merma.sobranteAnchoPct}%, incluye separaciones)
   • Desperdicio Total en KG: ${merma.kgDesperdicioEstructura} kg
   • Kilos Brutos Bobina ${merma.anchoBobinaNatural}cm: ${merma.kgTotalesBobina76} kg
 
