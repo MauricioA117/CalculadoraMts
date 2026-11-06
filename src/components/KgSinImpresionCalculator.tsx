@@ -205,19 +205,19 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
     <div className="space-y-6">
       
       {/* Header Banner */}
-      <div className="card-dark p-6 sm:p-8 relative overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="meta-label text-accent-ink">Conversión de Material & Corte</span>
-              <span className="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold border border-emerald-500/20">
+              <span className="meta-label text-blue-700">Conversión de Material & Corte</span>
+              <span className="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 font-bold border border-emerald-500/20">
                 0 tinta · sin impresión
               </span>
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
               Calculadora de KG Sin Impresión
             </h2>
-            <p className="text-xs sm:text-sm text-white/70 font-mono mt-1 max-w-3xl">
+            <p className="text-xs sm:text-sm text-slate-600 font-mono mt-1 max-w-3xl">
               Calcula a partir de los <strong>KG totales</strong> y el <strong>ancho del producto</strong> cuántas repeticiones caben en el sustrato (base <strong>76 cm</strong>), cuánto material se usará en metros lineales, el <strong>desglose exacto de kilos de cada material</strong> y el <strong>desperdicio por refile</strong>.
             </p>
           </div>
@@ -229,15 +229,15 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
               className="btn-primary py-2.5 px-4 text-xs font-bold flex items-center gap-2"
               title="Copiar Ficha Técnica al portapapeles"
             >
-              {copied ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4" />}
+              {copied ? <Check className="w-4 h-4 text-slate-900" /> : <Copy className="w-4 h-4" />}
               <span>{copied ? '¡COPIADO!' : 'COPIAR FICHA'}</span>
             </button>
           </div>
         </div>
 
         {/* Quick Structure Preset Buttons */}
-        <div className="mt-5 pt-4 border-t border-white/10 flex flex-wrap items-center gap-2">
-          <span className="text-xs text-white/55 font-bold mr-1">
+        <div className="mt-5 pt-4 border-t border-slate-200 flex flex-wrap items-center gap-2">
+          <span className="text-xs text-slate-500 font-bold mr-1">
             Presets Rápidos:
           </span>
           {PRESETS_SIN_IMPRESION.map(preset => (
@@ -247,8 +247,8 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
               onClick={() => handleSelectPreset(preset)}
               className={`px-2.5 py-1 text-xs rounded font-mono font-medium transition-all ${
                 presetSeleccionadoId === preset.id
-                  ? 'bg-accent text-white shadow-sm'
-                  : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white border border-white/10'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200'
               }`}
             >
               {preset.nombre}
@@ -262,7 +262,7 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
               className={`px-2.5 py-1 text-xs rounded font-mono font-medium transition-all flex items-center gap-1.5 ${
                 presetSeleccionadoId === 'hp_imported'
                   ? 'bg-sky-500 text-white shadow-sm'
-                  : 'bg-sky-500/10 text-sky-400 hover:bg-sky-500/20 border border-sky-500/30'
+                  : 'bg-sky-500/10 text-sky-700 hover:bg-sky-500/20 border border-sky-500/30'
               }`}
               title="Importar materiales activos del módulo Prensa HP (omitiendo tintas)"
             >
@@ -278,15 +278,15 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
         
         {/* Left Column: Dimensions & KG (5 cols) */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="card-dark p-6 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
-                <Weight className="w-4 h-4 text-accent-ink" />
-                <h3 className="font-display text-sm font-bold text-white">
+                <Weight className="w-4 h-4 text-blue-700" />
+                <h3 className="font-display text-sm font-bold text-slate-900">
                   1. Parámetros de Entrada
                 </h3>
               </div>
-              <span className="text-xs text-white/55 ">Kilos y dimensiones</span>
+              <span className="text-xs text-slate-500 ">Kilos y dimensiones</span>
             </div>
 
             {/* Kilos Input & Calculation Mode */}
@@ -295,7 +295,7 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                 <label className="meta-label flex items-center gap-1.5">
                   <span>{modoKilos === 'kilos_utiles_objetivo' ? 'Kilos Útiles Requeridos' : 'Kilos Brutos Disponibles'}</span>
                   {modoKilos === 'kilos_utiles_objetivo' && (
-                    <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                    <span className="text-xs font-bold text-emerald-700 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
                       Objetivo final
                     </span>
                   )}
@@ -307,7 +307,7 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                     className={`px-2 py-0.5 rounded text-xs font-bold transition-all ${
                       modoKilos === 'kilos_utiles_objetivo' 
                         ? 'bg-emerald-500 text-white shadow-sm' 
-                        : 'bg-white/5 text-white/62 hover:text-white'
+                        : 'bg-slate-50 text-slate-500 hover:text-slate-900'
                     }`}
                     title="Garantizar que al final los kilos útiles den exactamente el número ingresado"
                   >
@@ -318,8 +318,8 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                     onClick={() => setModoKilos('kilos_totales_brutos')}
                     className={`px-2 py-0.5 rounded text-xs font-bold transition-all ${
                       modoKilos === 'kilos_totales_brutos' 
-                        ? 'bg-accent text-white shadow-sm' 
-                        : 'bg-white/5 text-white/62 hover:text-white'
+                        ? 'bg-blue-600 text-white shadow-sm' 
+                        : 'bg-slate-50 text-slate-500 hover:text-slate-900'
                     }`}
                     title="Partir de una bobina bruta disponible en almacén"
                   >
@@ -335,15 +335,15 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                   min="1"
                   value={kilosTotales ?? ''}
                   onChange={(e) => setKilosTotales(parseFloat(e.target.value) || 0)}
-                  className={`input-dark w-full px-4 py-3 text-2xl font-bold font-mono text-white pl-4 pr-16 border ${
+                  className={`bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-4 py-3 text-2xl font-bold font-mono text-slate-900 pl-4 pr-16 border ${
                     modoKilos === 'kilos_utiles_objetivo' 
                       ? 'border-emerald-500/40 focus:border-emerald-500' 
-                      : 'border-accent/40 focus:border-accent'
+                      : 'border-blue-600/40 focus:border-blue-600'
                   }`}
                   placeholder="200"
                 />
                 <span className={`absolute right-4 top-1/2 -translate-y-1/2 text-sm font-mono font-bold ${
-                  modoKilos === 'kilos_utiles_objetivo' ? 'text-emerald-400' : 'text-accent-ink'
+                  modoKilos === 'kilos_utiles_objetivo' ? 'text-emerald-700' : 'text-blue-700'
                 }`}>
                   KG
                 </span>
@@ -359,9 +359,9 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                     className={`text-xs px-2 py-0.5 rounded border transition-all ${
                       kilosTotales === kg
                         ? modoKilos === 'kilos_utiles_objetivo'
-                          ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40 font-bold'
-                          : 'bg-accent/20 text-accent-ink border-accent/40 font-bold'
-                        : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10'
+                          ? 'bg-emerald-500/20 text-emerald-700 border-emerald-500/40 font-bold'
+                          : 'bg-blue-600/20 text-blue-700 border-blue-600/40 font-bold'
+                        : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
                     {kg} kg
@@ -370,19 +370,19 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
               </div>
 
               {/* Target Explanation Banner */}
-              <div className="p-2.5 rounded bg-white/[0.03] border border-white/10 text-xs text-white/70 space-y-1">
+              <div className="p-2.5 rounded bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
                 {modoKilos === 'kilos_utiles_objetivo' ? (
                   <>
-                    <div className="flex items-center gap-1.5 text-emerald-400 font-bold">
+                    <div className="flex items-center gap-1.5 text-emerald-700 font-bold">
                       <Check className="w-3.5 h-3.5 shrink-0" />
                       <span>Garantía: Al final en kilos útiles darán exactamente {kilosTotales} KG.</span>
                     </div>
-                    <p className="text-xs text-white/62">
+                    <p className="text-xs text-slate-500">
                       La merma ({resultado.porcentajeMermaTotal}%) se refleja y se suma encima, por lo que debes montar <strong>{resultado.kilosTotales} kg brutos</strong> de bobina madre.
                     </p>
                   </>
                 ) : (
-                  <p className="text-xs text-white/62">
+                  <p className="text-xs text-slate-500">
                     Partiendo de <strong>{kilosTotales} kg brutos</strong> de bobina madre, tras refilar se obtendrán <strong>{resultado.kilosUtiles} kg útiles</strong> y se perderán <strong>{resultado.kilosDesperdicio} kg</strong> de merma.
                   </p>
                 )}
@@ -390,10 +390,10 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
             </div>
 
             {/* Merma Adicional de Proceso / Ajuste (Opcional) */}
-            <div className="space-y-2 pt-2 border-t border-white/10">
+            <div className="space-y-2 pt-2 border-t border-slate-200">
               <div className="flex items-center justify-between">
                 <label className="meta-label text-xs">Merma Adicional Proceso / Arranque</label>
-                <span className="text-xs text-amber-400 font-bold">
+                <span className="text-xs text-amber-700 font-bold">
                   {mermaProcesoPct > 0 ? `+${mermaProcesoPct}% Ajuste` : '0% (Solo Refile)'}
                 </span>
               </div>
@@ -405,8 +405,8 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                     onClick={() => setMermaProcesoPct(pct)}
                     className={`text-xs px-2 py-1 rounded border flex-1 transition-all ${
                       mermaProcesoPct === pct
-                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold'
-                        : 'bg-white/5 text-white/62 border-white/10 hover:bg-white/10'
+                        ? 'bg-amber-500/20 text-amber-700 border-amber-500/40 font-bold'
+                        : 'bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
                     {pct === 0 ? '0% Solo Refile' : `+${pct}%`}
@@ -420,22 +420,22 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                     max="20"
                     value={mermaProcesoPct || ''}
                     onChange={(e) => setMermaProcesoPct(Math.max(0, parseFloat(e.target.value) || 0))}
-                    className="input-dark w-full px-2 py-1 text-xs text-center text-white pr-4"
+                    className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-2 py-1 text-xs text-center text-slate-900 pr-4"
                     placeholder="0"
                   />
-                  <span className="absolute right-1.5 top-1/2 -translate-y-1/2 text-xs text-white/55">%</span>
+                  <span className="absolute right-1.5 top-1/2 -translate-y-1/2 text-xs text-slate-500">%</span>
                 </div>
               </div>
-              <span className="text-xs text-white/55 block">
+              <span className="text-xs text-slate-500 block">
                 Merma de calibración de máquina o empalmes sumada al refile lateral ({resultado.porcentajeDesperdicio}% refile).
               </span>
             </div>
 
             {/* Ancho del Producto */}
-            <div className="space-y-2 pt-2 border-t border-white/10">
+            <div className="space-y-2 pt-2 border-t border-slate-200">
               <div className="flex items-center justify-between">
                 <label className="meta-label">Ancho del Producto / Repetición</label>
-                <span className="text-xs text-emerald-400 font-bold">Cada pista</span>
+                <span className="text-xs text-emerald-700 font-bold">Cada pista</span>
               </div>
               <div className="relative">
                 <input
@@ -445,10 +445,10 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                   max={anchoSustrato}
                   value={anchoProducto ?? ''}
                   onChange={(e) => setAnchoProducto(parseFloat(e.target.value) || 0)}
-                  className="input-dark w-full px-4 py-2.5 text-xl font-bold font-mono text-white pr-16"
+                  className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-4 py-2.5 text-xl font-bold font-mono text-slate-900 pr-16"
                   placeholder="18.0"
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-mono text-white/62 font-bold">
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-mono text-slate-500 font-bold">
                   cm
                 </span>
               </div>
@@ -462,21 +462,21 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                     onClick={() => setAnchoProducto(w)}
                     className={`text-xs px-2 py-0.5 rounded border ${
                       anchoProducto === w
-                        ? 'bg-accent/20 text-accent-ink border-accent/40 font-bold'
-                        : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10'
+                        ? 'bg-blue-600/20 text-blue-700 border-blue-600/40 font-bold'
+                        : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
                     {w} cm
                   </button>
                 ))}
               </div>
-              <span className="text-xs text-white/55 block">
+              <span className="text-xs text-slate-500 block">
                 Ancho unitario de la bolsa, tira, manga o bobina hija cortada.
               </span>
             </div>
 
             {/* Ancho del Sustrato (76 cm Default) */}
-            <div className="space-y-2 pt-2 border-t border-white/10">
+            <div className="space-y-2 pt-2 border-t border-slate-200">
               <div className="flex items-center justify-between">
                 <label className="meta-label">Ancho de Sustrato (Bobina)</label>
                 <button
@@ -484,8 +484,8 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                   onClick={() => setAnchoSustrato(76.0)}
                   className={`text-xs px-2 py-0.5 rounded border ${
                     anchoSustrato === 76.0
-                      ? 'bg-accent text-white border-accent font-bold'
-                      : 'bg-white/5 text-white/70 border-white/10 hover:bg-white/10'
+                      ? 'bg-blue-600 text-white border-blue-600 font-bold'
+                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
                   }`}
                   title="Restablecer a estándar de 76 cm"
                 >
@@ -500,21 +500,21 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                   max="200"
                   value={anchoSustrato ?? ''}
                   onChange={(e) => setAnchoSustrato(parseFloat(e.target.value) || 0)}
-                  className="input-dark w-full px-4 py-2.5 text-xl font-bold font-mono text-white pr-16"
+                  className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-4 py-2.5 text-xl font-bold font-mono text-slate-900 pr-16"
                   placeholder="76.0"
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-mono text-accent-ink font-bold">
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-mono text-blue-700 font-bold">
                   cm
                 </span>
               </div>
-              <div className="flex items-center justify-between text-xs text-white/55">
+              <div className="flex items-center justify-between text-xs text-slate-500">
                 <span>Ancho físico de la bobina madre o sustrato a refilar.</span>
                 <span>{(anchoSustrato / 100).toFixed(3)} m</span>
               </div>
             </div>
 
             {/* Opciones Avanzadas: Separación y Largo opcional */}
-            <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/10 text-xs">
+            <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-200 text-xs">
               <div className="space-y-1">
                 <span className="meta-label text-xs">Separación Cuchillas</span>
                 <div className="relative">
@@ -525,14 +525,14 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                     max="50"
                     value={separacionPistasMm ?? ''}
                     onChange={(e) => setSeparacionPistasMm(parseFloat(e.target.value) || 0)}
-                    className="input-dark w-full px-2.5 py-1.5 text-xs font-bold text-white pr-10"
+                    className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-2.5 py-1.5 text-xs font-bold text-slate-900 pr-10"
                     placeholder="0"
                   />
-                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-white/55">
+                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-slate-500">
                     mm
                   </span>
                 </div>
-                <span className="text-xs text-white/55 block">Gap entre pistas</span>
+                <span className="text-xs text-slate-500 block">Gap entre pistas</span>
               </div>
 
               <div className="space-y-1">
@@ -545,14 +545,14 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                     max="200"
                     value={largoProducto > 0 ? largoProducto : ''}
                     onChange={(e) => setLargoProducto(parseFloat(e.target.value) || 0)}
-                    className="input-dark w-full px-2.5 py-1.5 text-xs font-bold text-white pr-10"
+                    className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-2.5 py-1.5 text-xs font-bold text-slate-900 pr-10"
                     placeholder="Ej. 25"
                   />
-                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-white/55">
+                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-slate-500">
                     cm
                   </span>
                 </div>
-                <span className="text-xs text-white/55 block">Para estimar piezas</span>
+                <span className="text-xs text-slate-500 block">Para estimar piezas</span>
               </div>
             </div>
 
@@ -561,22 +561,22 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
 
         {/* Right Column: Layer Structure (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="card-dark p-6 space-y-5">
-            <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5">
+            <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
-                <Layers className="w-4 h-4 text-accent-ink" />
-                <h3 className="font-display text-sm font-bold text-white">
+                <Layers className="w-4 h-4 text-blue-700" />
+                <h3 className="font-display text-sm font-bold text-slate-900">
                   2. Estructura de Materiales (Sin Tintas)
                 </h3>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-accent-ink">
+                <span className="text-xs font-bold text-blue-700">
                   Gramaje: {resultado.gramajeTotal.toFixed(2)} g/m²
                 </span>
                 <button
                   type="button"
                   onClick={handleAddLayer}
-                  className="px-2.5 py-1 text-xs rounded bg-white/10 hover:bg-white/20 text-white font-mono flex items-center gap-1 transition-all"
+                  className="px-2.5 py-1 text-xs rounded bg-slate-100 hover:bg-slate-200 text-slate-900 font-mono flex items-center gap-1 transition-all"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Capa</span>
@@ -597,27 +597,27 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                 return (
                   <div
                     key={capa.id}
-                    className="bg-sunken p-3.5 rounded border border-white/10 space-y-2 relative group hover:border-white/20 transition-all"
+                    className="bg-slate-100 p-3.5 rounded border border-slate-200 space-y-2 relative group hover:border-slate-300 transition-all"
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
-                        <span className="w-5 h-5 rounded-full bg-accent/20 text-accent-ink font-mono text-xs font-bold flex items-center justify-center">
+                        <span className="w-5 h-5 rounded-full bg-blue-600/20 text-blue-700 font-mono text-xs font-bold flex items-center justify-center">
                           {index + 1}
                         </span>
-                        <span className="text-xs font-bold text-white font-mono">
+                        <span className="text-xs font-bold text-slate-900 font-mono">
                           {capa.nombre}
                         </span>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-emerald-400 font-bold">
-                          {gramajeCapa} g/m² <span className="text-white/55 text-xs">({pctCapa}%)</span>
+                        <span className="text-xs text-emerald-700 font-bold">
+                          {gramajeCapa} g/m² <span className="text-slate-500 text-xs">({pctCapa}%)</span>
                         </span>
                         {capas.length > 1 && (
                           <button
                             type="button"
                             onClick={() => handleRemoveLayer(capa.id)}
-                            className="p-1 rounded text-white/45 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                            className="p-1 rounded text-slate-400 hover:text-red-700 hover:bg-red-500/10 transition-all"
                             title="Eliminar capa"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -640,16 +640,16 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
 
             {/* Adhesivo de laminación toggle (if >= 2 capas) */}
             {capas.length >= 2 ? (
-              <div className="bg-white/[0.03] p-3 rounded border border-white/10 flex items-center justify-between text-xs">
+              <div className="bg-slate-50 p-3 rounded border border-slate-200 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     id="chk-adhesivo"
                     checked={incluirAdhesivo}
                     onChange={(e) => setIncluirAdhesivo(e.target.checked)}
-                    className="rounded border-white/20 text-accent-ink focus:ring-accent"
+                    className="rounded border-slate-300 text-blue-700 focus:ring-blue-600"
                   />
-                  <label htmlFor="chk-adhesivo" className="text-white cursor-pointer select-none">
+                  <label htmlFor="chk-adhesivo" className="text-slate-900 cursor-pointer select-none">
                     Adhesivo de Laminación ({capas.length - 1} unión(es))
                   </label>
                 </div>
@@ -662,23 +662,23 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
                       max="10"
                       value={gramajeAdhesivoPorUnion}
                       onChange={(e) => setGramajeAdhesivoPorUnion(parseFloat(e.target.value) || 0)}
-                      className="w-14 bg-white/10 border border-white/20 rounded px-1.5 py-0.5 text-center text-xs font-bold text-white"
+                      className="w-14 bg-slate-100 border border-slate-300 rounded px-1.5 py-0.5 text-center text-xs font-bold text-slate-900"
                     />
-                    <span className="text-white/55 text-xs">g/m² c/u</span>
+                    <span className="text-slate-500 text-xs">g/m² c/u</span>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="p-2.5 rounded bg-white/[0.02] border border-white/5 text-xs text-white/55 flex items-center gap-1.5">
-                <Info className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+              <div className="p-2.5 rounded bg-slate-50 border border-slate-100 text-xs text-slate-500 flex items-center gap-1.5">
+                <Info className="w-3.5 h-3.5 text-sky-700 shrink-0" />
                 <span>Estructura Monocapa pura: 1 solo sustrato sin uniones adhesivas ni tintas.</span>
               </div>
             )}
 
             {/* Structure Summary Bar */}
-            <div className="pt-2 flex items-center justify-between text-xs text-white/70">
+            <div className="pt-2 flex items-center justify-between text-xs text-slate-600">
               <span>{capas.length === 1 ? '1 Sustrato Monocapa' : `${capas.length} Capas Laminadas`}</span>
-              <span className="text-white font-bold">{resultado.gramajeTotal.toFixed(2)} g/m² Totales</span>
+              <span className="text-slate-900 font-bold">{resultado.gramajeTotal.toFixed(2)} g/m² Totales</span>
             </div>
 
           </div>
@@ -688,7 +688,7 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
 
       {/* Warning if width doesn't fit */}
       {resultado.esAnchoInsuficiente && (
-        <div className="card-dark p-4 bg-red-500/10 border border-red-500/30 flex items-center gap-3 text-red-400 text-xs">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 bg-red-500/10 border border-red-500/30 flex items-center gap-3 text-red-700 text-xs">
           <AlertTriangle className="w-5 h-5 shrink-0" />
           <div>
             <strong>Ancho insuficiente:</strong> El ancho de producto ({anchoProducto} cm) excede el ancho del sustrato ({anchoSustrato} cm). No cabe ninguna repetición completa.
@@ -702,82 +702,82 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* Metric 1: Kilos Útiles en Producto (HERO PRINCIPAL) */}
-        <div className="card-dark p-5 relative overflow-hidden border-t-2 border-t-emerald-400 bg-emerald-500/[0.03]">
-          <div className="flex items-center justify-between text-white/62 text-xs mb-2">
-            <span className="flex items-center gap-1.5 font-bold text-emerald-400">
-              <Weight className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 relative overflow-hidden border-t-2 border-t-emerald-400 bg-emerald-500/[0.03]">
+          <div className="flex items-center justify-between text-slate-500 text-xs mb-2">
+            <span className="flex items-center gap-1.5 font-bold text-emerald-700">
+              <Weight className="w-3.5 h-3.5 text-emerald-700" />
               Kilos Útiles Finales
             </span>
-            <span className="text-xs bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-bold">
+            <span className="text-xs bg-emerald-500/20 text-emerald-700 px-1.5 py-0.5 rounded font-bold">
               Objetivo cumplido
             </span>
           </div>
-          <div className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-emerald-400 flex items-baseline gap-2">
+          <div className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-emerald-700 flex items-baseline gap-2">
             <span>{resultado.kilosUtiles.toLocaleString()}</span>
-            <span className="text-xl sm:text-2xl text-white/70 font-mono font-bold">KG</span>
+            <span className="text-xl sm:text-2xl text-slate-600 font-mono font-bold">KG</span>
           </div>
-          <div className="mt-2 text-xs text-white/70 flex items-center justify-between">
+          <div className="mt-2 text-xs text-slate-600 flex items-center justify-between">
             <span>{resultado.repeticiones} pistas de {resultado.anchoProductoCm} cm</span>
-            <span className="text-emerald-400 font-bold">{resultado.areaUtilM2.toLocaleString()} m² útiles</span>
+            <span className="text-emerald-700 font-bold">{resultado.areaUtilM2.toLocaleString()} m² útiles</span>
           </div>
         </div>
 
         {/* Metric 2: Desperdicio por Merma / Refile */}
-        <div className="card-dark p-5 relative overflow-hidden border-t-2 border-t-amber-400">
-          <div className="flex items-center justify-between text-white/62 text-xs mb-2">
-            <span className="flex items-center gap-1.5 text-amber-300">
-              <Scissors className="w-3.5 h-3.5 text-amber-400" />
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 relative overflow-hidden border-t-2 border-t-amber-400">
+          <div className="flex items-center justify-between text-slate-500 text-xs mb-2">
+            <span className="flex items-center gap-1.5 text-amber-700">
+              <Scissors className="w-3.5 h-3.5 text-amber-700" />
               Merma Total Reflejada
             </span>
-            <span className="text-xs text-amber-400 font-bold bg-amber-500/10 px-1.5 py-0.5 rounded">
+            <span className="text-xs text-amber-700 font-bold bg-amber-500/10 px-1.5 py-0.5 rounded">
               +{resultado.porcentajeMermaTotal}% Merma
             </span>
           </div>
-          <div className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-amber-400 flex items-baseline gap-2">
+          <div className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-amber-700 flex items-baseline gap-2">
             <span>+{resultado.kilosDesperdicio.toLocaleString()}</span>
-            <span className="text-xl sm:text-2xl text-white/70 font-mono font-bold">KG</span>
+            <span className="text-xl sm:text-2xl text-slate-600 font-mono font-bold">KG</span>
           </div>
-          <div className="mt-2 text-xs text-white/70 flex items-center justify-between">
+          <div className="mt-2 text-xs text-slate-600 flex items-center justify-between">
             <span>Refile: <strong>{resultado.anchoDesperdicioRefileCm} cm</strong></span>
             <span>({resultado.kilosDesperdicioRefile} kg refile {resultado.kilosDesperdicioProceso > 0 ? `+ ${resultado.kilosDesperdicioProceso} kg proc.` : ''})</span>
           </div>
         </div>
 
         {/* Metric 3: Materia Prima Bruta a Montar */}
-        <div className="card-dark p-5 relative overflow-hidden border-t-2 border-t-accent">
-          <div className="flex items-center justify-between text-white/62 text-xs mb-2">
-            <span className="flex items-center gap-1.5 text-white/80">
-              <Layers className="w-3.5 h-3.5 text-accent-ink" />
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 relative overflow-hidden border-t-2 border-t-accent">
+          <div className="flex items-center justify-between text-slate-500 text-xs mb-2">
+            <span className="flex items-center gap-1.5 text-slate-700">
+              <Layers className="w-3.5 h-3.5 text-blue-700" />
               Bobina Bruta Requerida
             </span>
-            <span className="text-xs text-accent-ink font-bold">BASE {resultado.anchoSustratoCm} CM</span>
+            <span className="text-xs text-blue-700 font-bold">BASE {resultado.anchoSustratoCm} CM</span>
           </div>
-          <div className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-white flex items-baseline gap-2">
+          <div className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 flex items-baseline gap-2">
             <span>{resultado.kilosTotales.toLocaleString()}</span>
-            <span className="text-xl sm:text-2xl text-accent-ink font-mono font-bold">KG</span>
+            <span className="text-xl sm:text-2xl text-blue-700 font-mono font-bold">KG</span>
           </div>
-          <div className="mt-2 text-xs text-white/70 flex items-center justify-between">
+          <div className="mt-2 text-xs text-slate-600 flex items-center justify-between">
             <span>Útiles ({resultado.kilosUtiles} kg) + Merma ({resultado.kilosDesperdicio} kg)</span>
-            <span className="text-white/55">{resultado.areaSustratoM2.toLocaleString()} m²</span>
+            <span className="text-slate-500">{resultado.areaSustratoM2.toLocaleString()} m²</span>
           </div>
         </div>
 
         {/* Metric 4: Cuánto material usaré (Metros Lineales) */}
-        <div className="card-dark p-5 relative overflow-hidden border-t-2 border-t-sky-400">
-          <div className="flex items-center justify-between text-white/62 text-xs mb-2">
-            <span className="flex items-center gap-1.5 text-sky-300">
-              <Ruler className="w-3.5 h-3.5 text-sky-400" />
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 relative overflow-hidden border-t-2 border-t-sky-400">
+          <div className="flex items-center justify-between text-slate-500 text-xs mb-2">
+            <span className="flex items-center gap-1.5 text-sky-700">
+              <Ruler className="w-3.5 h-3.5 text-sky-700" />
               Metros Lineales a Correr
             </span>
-            <span className="text-xs text-sky-400 font-bold">{resultado.repeticiones} pistas</span>
+            <span className="text-xs text-sky-700 font-bold">{resultado.repeticiones} pistas</span>
           </div>
-          <div className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-white flex items-baseline gap-2">
+          <div className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 flex items-baseline gap-2">
             <span>{resultado.metrosLineales.toLocaleString()}</span>
-            <span className="text-xl sm:text-2xl text-sky-400 font-mono font-bold">ML</span>
+            <span className="text-xl sm:text-2xl text-sky-700 font-mono font-bold">ML</span>
           </div>
-          <div className="mt-2 text-xs text-white/70 flex items-center justify-between">
+          <div className="mt-2 text-xs text-slate-600 flex items-center justify-between">
             <span>{(resultado.metrosLineales / 1000).toFixed(2)} km continuos</span>
-            <span className="text-sky-300 font-bold">{resultado.metrosLinealesUtilesAcumulados.toLocaleString()} ML útiles</span>
+            <span className="text-sky-700 font-bold">{resultado.metrosLinealesUtilesAcumulados.toLocaleString()} ML útiles</span>
           </div>
         </div>
 
@@ -786,25 +786,25 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
       {/* ======================================================== */}
       {/* 4. VISUALIZADOR DE CORTE A ESCALA (ANCHO 76 CM) */}
       {/* ======================================================== */}
-      <div className="card-dark p-6 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
           <div>
-            <h3 className="font-display text-sm font-bold text-white flex items-center gap-2">
-              <Scissors className="w-4 h-4 text-accent-ink" />
+            <h3 className="font-display text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Scissors className="w-4 h-4 text-blue-700" />
               Esquema de Corte al Ancho del Sustrato ({resultado.anchoSustratoCm} cm)
             </h3>
-            <span className="text-xs text-white/62">
+            <span className="text-xs text-slate-500">
               Distribución transversal de las {resultado.repeticiones} repeticiones y orillas de refile
             </span>
           </div>
           <div className="flex items-center gap-3 text-xs">
             <div className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded bg-emerald-500/80"></span>
-              <span className="text-white/70">Pista Útil ({resultado.anchoProductoCm} cm)</span>
+              <span className="text-slate-600">Pista Útil ({resultado.anchoProductoCm} cm)</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded bg-amber-500/80"></span>
-              <span className="text-white/70">Refile ({resultado.anchoDesperdicioRefileCm} cm)</span>
+              <span className="text-slate-600">Refile ({resultado.anchoDesperdicioRefileCm} cm)</span>
             </div>
           </div>
         </div>
@@ -812,17 +812,17 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
         {/* Scaled Bar Visualizer */}
         <div className="space-y-2">
           {/* Main Visual Roll width bar */}
-          <div className="w-full h-20 bg-black/60 rounded border border-white/20 p-1 flex items-center relative overflow-hidden font-mono">
+          <div className="w-full h-20 bg-slate-200 rounded border border-slate-300 p-1 flex items-center relative overflow-hidden font-mono">
             
             {/* Left Trim / Refile Orilla Izquierda (if centered) */}
             {resultado.refilePorLadoCm > 0 && (
               <div
                 style={{ width: `${(resultado.refilePorLadoCm / resultado.anchoSustratoCm) * 100}%` }}
-                className="h-full bg-amber-500/25 border-r border-amber-500/50 flex flex-col items-center justify-center text-xs text-amber-300 font-bold px-1 overflow-hidden"
+                className="h-full bg-amber-500/25 border-r border-amber-500/50 flex flex-col items-center justify-center text-xs text-amber-700 font-bold px-1 overflow-hidden"
                 title={`Refile orilla izquierda: ${resultado.refilePorLadoCm} cm`}
               >
                 <span className="truncate">Refile</span>
-                <span className="text-xs text-amber-400/80 truncate">{resultado.refilePorLadoCm} cm</span>
+                <span className="text-xs text-amber-700/80 truncate">{resultado.refilePorLadoCm} cm</span>
               </div>
             )}
 
@@ -831,16 +831,16 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
               <div
                 key={`pista-${idx}`}
                 style={{ width: `${(resultado.anchoProductoCm / resultado.anchoSustratoCm) * 100}%` }}
-                className="h-full bg-emerald-500/30 border-r border-emerald-400/50 flex flex-col items-center justify-center text-xs text-white font-bold px-1 relative group"
+                className="h-full bg-emerald-500/30 border-r border-emerald-400/50 flex flex-col items-center justify-center text-xs text-slate-900 font-bold px-1 relative group"
                 title={`Pista #${idx + 1}: ${resultado.anchoProductoCm} cm útiles`}
               >
-                <span className="text-xs text-emerald-300 ">
+                <span className="text-xs text-emerald-700 ">
                   Pista #{idx + 1}
                 </span>
-                <span className="text-sm font-mono text-white">
+                <span className="text-sm font-mono text-slate-900">
                   {resultado.anchoProductoCm} cm
                 </span>
-                <div className="absolute bottom-1 text-xs text-emerald-400/70 font-normal">
+                <div className="absolute bottom-1 text-xs text-emerald-700/70 font-normal">
                   Útil
                 </div>
               </div>
@@ -850,20 +850,20 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
             {resultado.refilePorLadoCm > 0 && (
               <div
                 style={{ width: `${(resultado.refilePorLadoCm / resultado.anchoSustratoCm) * 100}%` }}
-                className="h-full bg-amber-500/25 flex flex-col items-center justify-center text-xs text-amber-300 font-bold px-1 overflow-hidden ml-auto"
+                className="h-full bg-amber-500/25 flex flex-col items-center justify-center text-xs text-amber-700 font-bold px-1 overflow-hidden ml-auto"
                 title={`Refile orilla derecha: ${resultado.refilePorLadoCm} cm`}
               >
                 <span className="truncate">Refile</span>
-                <span className="text-xs text-amber-400/80 truncate">{resultado.refilePorLadoCm} cm</span>
+                <span className="text-xs text-amber-700/80 truncate">{resultado.refilePorLadoCm} cm</span>
               </div>
             )}
 
           </div>
 
           {/* Dimension ruler markers below */}
-          <div className="flex items-center justify-between text-xs text-white/55 px-1">
+          <div className="flex items-center justify-between text-xs text-slate-500 px-1">
             <span>0 cm</span>
-            <span className="text-white/70 font-bold">
+            <span className="text-slate-600 font-bold">
               ANCHO BOBINA: {resultado.anchoSustratoCm} cm
             </span>
             <span>{resultado.anchoSustratoCm} cm</span>
@@ -872,32 +872,32 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
 
         {/* Breakdown explanation text */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs">
-          <div className="p-3 rounded bg-white/[0.02] border border-white/5 space-y-1">
-            <span className="text-white/55 text-xs block font-bold">Pistas de Corte</span>
-            <div className="text-white font-bold">
+          <div className="p-3 rounded bg-slate-50 border border-slate-100 space-y-1">
+            <span className="text-slate-500 text-xs block font-bold">Pistas de Corte</span>
+            <div className="text-slate-900 font-bold">
               {resultado.repeticiones} tiras de {resultado.anchoProductoCm} cm
             </div>
-            <span className="text-white/55 text-xs block">
+            <span className="text-slate-500 text-xs block">
               = {resultado.anchoUtilTotalCm} cm ancho neto aprovechado
             </span>
           </div>
 
-          <div className="p-3 rounded bg-white/[0.02] border border-white/5 space-y-1">
-            <span className="text-amber-400/80 text-xs block font-bold">Refile Lateral Total</span>
-            <div className="text-amber-400 font-bold">
+          <div className="p-3 rounded bg-slate-50 border border-slate-100 space-y-1">
+            <span className="text-amber-700/80 text-xs block font-bold">Refile Lateral Total</span>
+            <div className="text-amber-700 font-bold">
               {resultado.anchoDesperdicioRefileCm} cm ({resultado.porcentajeDesperdicio}%)
             </div>
-            <span className="text-white/55 text-xs block">
+            <span className="text-slate-500 text-xs block">
               Dos orillas de {resultado.refilePorLadoCm} cm c/u
             </span>
           </div>
 
-          <div className="p-3 rounded bg-white/[0.02] border border-white/5 space-y-1">
-            <span className="text-sky-400/80 text-xs block font-bold">Metros Lineales Útiles Totales</span>
-            <div className="text-sky-400 font-bold">
+          <div className="p-3 rounded bg-slate-50 border border-slate-100 space-y-1">
+            <span className="text-sky-700/80 text-xs block font-bold">Metros Lineales Útiles Totales</span>
+            <div className="text-sky-700 font-bold">
               {resultado.metrosLinealesUtilesAcumulados.toLocaleString()} ML
             </div>
-            <span className="text-white/55 text-xs block">
+            <span className="text-slate-500 text-xs block">
               {resultado.metrosLineales.toLocaleString()} ML × {resultado.repeticiones} pistas en paralelo
             </span>
           </div>
@@ -908,27 +908,27 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
       {/* ======================================================== */}
       {/* 5. CUÁNTOS KG SE OCUPAN DE CADA MATERIAL (TABLA DETALLADA) */}
       {/* ======================================================== */}
-      <div className="card-dark p-6 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
           <div>
-            <h3 className="font-display text-sm font-bold text-white flex items-center gap-2">
-              <Weight className="w-4 h-4 text-accent-ink" />
+            <h3 className="font-display text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Weight className="w-4 h-4 text-blue-700" />
               Desglose de Kilos por Cada Material (Balance Útil vs Merma)
             </h3>
-            <span className="text-xs text-emerald-400">
+            <span className="text-xs text-emerald-700">
               ✓ Cada material se calcula para que al final en kilos útiles den exactamente los {resultado.kilosUtiles} KG requeridos.
             </span>
           </div>
           <div className="flex items-center gap-2 text-xs">
-            <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
+            <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 font-bold">
               Útil: {resultado.kilosUtiles} kg
             </span>
-            <span className="text-white/55">+</span>
-            <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">
+            <span className="text-slate-500">+</span>
+            <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-700 border border-amber-500/20 font-bold">
               Merma: {resultado.kilosDesperdicio} kg
             </span>
-            <span className="text-white/55">=</span>
-            <span className="px-2 py-0.5 rounded bg-accent/10 text-accent-ink border border-accent/20 font-bold">
+            <span className="text-slate-500">=</span>
+            <span className="px-2 py-0.5 rounded bg-blue-600/10 text-blue-700 border border-blue-600/20 font-bold">
               Total Bruto: {resultado.kilosTotales} kg
             </span>
           </div>
@@ -938,109 +938,109 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
         <div className="overflow-x-auto">
           <table className="w-full text-left font-mono text-xs border-collapse">
             <thead>
-              <tr className="border-b border-white/10 text-white/55 text-xs ">
+              <tr className="border-b border-slate-200 text-slate-500 text-xs ">
                 <th className="py-2.5 px-3">Capa / Material</th>
                 <th className="py-2.5 px-3">Calibre / Densidad</th>
                 <th className="py-2.5 px-3">Gramaje</th>
                 <th className="py-2.5 px-3">% Estructura</th>
-                <th className="py-2.5 px-3 text-emerald-400 font-bold bg-emerald-500/5 border-l border-emerald-500/20">
+                <th className="py-2.5 px-3 text-emerald-700 font-bold bg-emerald-500/5 border-l border-emerald-500/20">
                   KG Útiles en Producto
                 </th>
-                <th className="py-2.5 px-3 text-amber-400 font-bold bg-amber-500/5 border-l border-amber-500/20">
+                <th className="py-2.5 px-3 text-amber-700 font-bold bg-amber-500/5 border-l border-amber-500/20">
                   KG Merma (Refile / Scrap)
                 </th>
-                <th className="py-2.5 px-3 text-accent-ink font-bold bg-accent/5 border-l border-accent/20">
+                <th className="py-2.5 px-3 text-blue-700 font-bold bg-blue-600/5 border-l border-blue-600/20">
                   KG Brutos a Solicitar (76 cm)
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-slate-100">
               {resultado.desgloseMateriales.map((m, index) => (
-                <tr key={m.id} className="hover:bg-white/[0.02] transition-colors">
+                <tr key={m.id} className="hover:bg-slate-50 transition-colors">
                   <td className="py-3 px-3">
-                    <div className="font-bold text-white flex items-center gap-2">
-                      <span className="w-4 h-4 rounded-full bg-white/10 text-white/70 text-xs flex items-center justify-center">
+                    <div className="font-bold text-slate-900 flex items-center gap-2">
+                      <span className="w-4 h-4 rounded-full bg-slate-100 text-slate-600 text-xs flex items-center justify-center">
                         {index + 1}
                       </span>
                       <span>{m.nombre}</span>
                     </div>
                   </td>
-                  <td className="py-3 px-3 text-white/70">
+                  <td className="py-3 px-3 text-slate-600">
                     {m.micras} µm • {m.densidad} g/cm³
                   </td>
-                  <td className="py-3 px-3 text-white font-bold">
+                  <td className="py-3 px-3 text-slate-900 font-bold">
                     {m.gramaje.toFixed(2)} g/m²
                   </td>
-                  <td className="py-3 px-3 text-white/62">
+                  <td className="py-3 px-3 text-slate-500">
                     {m.porcentaje}%
                   </td>
-                  <td className="py-3 px-3 font-bold text-white bg-emerald-500/5 border-l border-emerald-500/20">
-                    <span className="text-sm text-emerald-400 font-bold">{m.kilosUtiles.toLocaleString()}</span> kg
+                  <td className="py-3 px-3 font-bold text-slate-900 bg-emerald-500/5 border-l border-emerald-500/20">
+                    <span className="text-sm text-emerald-700 font-bold">{m.kilosUtiles.toLocaleString()}</span> kg
                   </td>
-                  <td className="py-3 px-3 font-bold text-white bg-amber-500/5 border-l border-amber-500/20">
-                    <span className="text-sm text-amber-400 font-bold">+{m.kilosDesperdicio.toLocaleString()}</span> kg
+                  <td className="py-3 px-3 font-bold text-slate-900 bg-amber-500/5 border-l border-amber-500/20">
+                    <span className="text-sm text-amber-700 font-bold">+{m.kilosDesperdicio.toLocaleString()}</span> kg
                   </td>
-                  <td className="py-3 px-3 font-bold text-white bg-accent/5 border-l border-accent/20">
-                    <span className="text-sm text-accent-ink font-bold">{m.kilosTotales.toLocaleString()}</span> kg
+                  <td className="py-3 px-3 font-bold text-slate-900 bg-blue-600/5 border-l border-blue-600/20">
+                    <span className="text-sm text-blue-700 font-bold">{m.kilosTotales.toLocaleString()}</span> kg
                   </td>
                 </tr>
               ))}
 
               {/* Adhesivo row if exists */}
               {resultado.desgloseAdhesivo && (
-                <tr className="hover:bg-white/[0.02] transition-colors bg-white/[0.01]">
+                <tr className="hover:bg-slate-50 transition-colors bg-slate-50">
                   <td className="py-3 px-3">
-                    <div className="font-bold text-white/80 flex items-center gap-2">
-                      <span className="w-4 h-4 rounded-full bg-sky-500/20 text-sky-400 text-xs flex items-center justify-center">
+                    <div className="font-bold text-slate-700 flex items-center gap-2">
+                      <span className="w-4 h-4 rounded-full bg-sky-500/20 text-sky-700 text-xs flex items-center justify-center">
                         +
                       </span>
                       <span>Adhesivo de Laminación</span>
                     </div>
                   </td>
-                  <td className="py-3 px-3 text-white/55">
+                  <td className="py-3 px-3 text-slate-500">
                     Solventless
                   </td>
-                  <td className="py-3 px-3 text-white font-bold">
+                  <td className="py-3 px-3 text-slate-900 font-bold">
                     {resultado.desgloseAdhesivo.gramajeTotal.toFixed(2)} g/m²
                   </td>
-                  <td className="py-3 px-3 text-white/62">
+                  <td className="py-3 px-3 text-slate-500">
                     {resultado.desgloseAdhesivo.porcentaje}%
                   </td>
-                  <td className="py-3 px-3 font-bold text-white bg-emerald-500/5 border-l border-emerald-500/20">
-                    <span className="text-sm text-emerald-400 font-bold">{resultado.desgloseAdhesivo.kilosUtiles.toLocaleString()}</span> kg
+                  <td className="py-3 px-3 font-bold text-slate-900 bg-emerald-500/5 border-l border-emerald-500/20">
+                    <span className="text-sm text-emerald-700 font-bold">{resultado.desgloseAdhesivo.kilosUtiles.toLocaleString()}</span> kg
                   </td>
-                  <td className="py-3 px-3 font-bold text-white bg-amber-500/5 border-l border-amber-500/20">
-                    <span className="text-sm text-amber-400 font-bold">+{resultado.desgloseAdhesivo.kilosDesperdicio.toLocaleString()}</span> kg
+                  <td className="py-3 px-3 font-bold text-slate-900 bg-amber-500/5 border-l border-amber-500/20">
+                    <span className="text-sm text-amber-700 font-bold">+{resultado.desgloseAdhesivo.kilosDesperdicio.toLocaleString()}</span> kg
                   </td>
-                  <td className="py-3 px-3 font-bold text-white bg-accent/5 border-l border-accent/20">
-                    <span className="text-sm text-accent-ink font-bold">{resultado.desgloseAdhesivo.kilosTotales.toLocaleString()}</span> kg
+                  <td className="py-3 px-3 font-bold text-slate-900 bg-blue-600/5 border-l border-blue-600/20">
+                    <span className="text-sm text-blue-700 font-bold">{resultado.desgloseAdhesivo.kilosTotales.toLocaleString()}</span> kg
                   </td>
                 </tr>
               )}
 
               {/* Total Footer Row */}
-              <tr className="border-t-2 border-white/20 bg-white/[0.04] font-bold">
-                <td className="py-3 px-3 text-white " colSpan={2}>
+              <tr className="border-t-2 border-slate-300 bg-slate-50 font-bold">
+                <td className="py-3 px-3 text-slate-900 " colSpan={2}>
                   <div className="flex flex-col">
                     <span>Balance total de materiales</span>
-                    <span className="text-xs text-emerald-400 font-normal">
+                    <span className="text-xs text-emerald-700 font-normal">
                       Kilos útiles dan exactamente {resultado.kilosUtiles} kg
                     </span>
                   </div>
                 </td>
-                <td className="py-3 px-3 text-white">
+                <td className="py-3 px-3 text-slate-900">
                   {resultado.gramajeTotal.toFixed(2)} g/m²
                 </td>
-                <td className="py-3 px-3 text-white">
+                <td className="py-3 px-3 text-slate-900">
                   100%
                 </td>
-                <td className="py-3 px-3 text-emerald-400 bg-emerald-500/10 border-l border-emerald-500/30 text-sm">
+                <td className="py-3 px-3 text-emerald-700 bg-emerald-500/10 border-l border-emerald-500/30 text-sm">
                   {resultado.kilosUtiles.toLocaleString()} kg
                 </td>
-                <td className="py-3 px-3 text-amber-400 bg-amber-500/10 border-l border-amber-500/30 text-sm">
+                <td className="py-3 px-3 text-amber-700 bg-amber-500/10 border-l border-amber-500/30 text-sm">
                   +{resultado.kilosDesperdicio.toLocaleString()} kg
                 </td>
-                <td className="py-3 px-3 text-accent-ink bg-accent/10 border-l border-accent/30 text-sm">
+                <td className="py-3 px-3 text-blue-700 bg-blue-600/10 border-l border-blue-600/30 text-sm">
                   ={resultado.kilosTotales.toLocaleString()} kg
                 </td>
               </tr>
@@ -1050,11 +1050,11 @@ ${resultado.desgloseAdhesivo ? `  • Adhesivo de Laminación:
 
         {/* Optional Total Pieces Callout */}
         {resultado.totalPiezas && (
-          <div className="p-3 rounded bg-white/[0.02] border border-white/10 flex items-center justify-between text-xs">
-            <span className="text-white/70">
+          <div className="p-3 rounded bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
+            <span className="text-slate-600">
               Con un largo de <strong>{largoProducto} cm</strong> por empaque / bolsa:
             </span>
-            <span className="text-sm font-bold text-white">
+            <span className="text-sm font-bold text-slate-900">
               ≈ {resultado.totalPiezas.toLocaleString()} unidades totales
             </span>
           </div>

@@ -58,7 +58,7 @@ export const SelectorMaterial: React.FC<SelectorMaterialProps> = ({
         aria-label="Material"
         value={material ? material.codigo : nombre}
         onChange={(e) => elegirMaterial(e.target.value)}
-        className="input-dark px-2.5 py-1.5 text-xs font-bold min-w-[130px] flex-1"
+        className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition px-2.5 py-1.5 text-xs font-bold w-full min-w-0 sm:w-auto sm:min-w-[130px] sm:flex-1"
       >
         {!material && <option value={nombre}>{nombre || 'Sin material'} (fuera de catálogo)</option>}
         {materiales.map(m => (
@@ -66,7 +66,7 @@ export const SelectorMaterial: React.FC<SelectorMaterialProps> = ({
         ))}
       </select>
 
-      <label className="flex items-center gap-1.5 text-xs text-white/65">
+      <label className="flex items-center gap-1.5 text-xs text-slate-500">
         <span>Calibre</span>
         <select
           id={idBase ? `${idBase}-calibre` : undefined}
@@ -74,7 +74,7 @@ export const SelectorMaterial: React.FC<SelectorMaterialProps> = ({
           value={String(micras)}
           onChange={(e) => elegirCalibre(e.target.value)}
           disabled={!material}
-          className={`input-dark px-2 py-1.5 text-xs font-bold min-w-[84px] ${calibreValido ? '' : 'border-rose-500'}`}
+          className={`bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition px-2 py-1.5 text-xs font-bold min-w-[84px] ${calibreValido ? '' : 'border-rose-500'}`}
         >
           {!calibreValido && (
             <option value={String(micras)}>{formatoCalibre(micras)} µm (no válido)</option>
@@ -86,7 +86,7 @@ export const SelectorMaterial: React.FC<SelectorMaterialProps> = ({
       </label>
 
       <span
-        className="text-xs text-white/65 font-mono whitespace-nowrap"
+        className="text-xs text-slate-500 font-mono whitespace-nowrap"
         title="Densidad oficial del catálogo (solo lectura)"
       >
         d: {material ? material.densidad : '—'}
@@ -106,13 +106,13 @@ export const AvisoValidacion: React.FC<AvisoValidacionProps> = ({ errores, class
   return (
     <div
       role="alert"
-      className={`rounded-lg border border-rose-500/50 bg-rose-500/10 p-3 text-sm text-rose-300 ${className}`}
+      className={`rounded-lg border border-rose-500/50 bg-rose-500/10 p-3 text-sm text-rose-700 ${className}`}
     >
       <div className="flex items-center gap-2 font-semibold">
         <AlertTriangle className="w-4 h-4 shrink-0" />
         <span>Corrige la estructura: los resultados no son válidos</span>
       </div>
-      <ul className="mt-1.5 ml-6 list-disc space-y-0.5 text-white/80">
+      <ul className="mt-1.5 ml-6 list-disc space-y-0.5 text-slate-700">
         {errores.map((e, i) => <li key={i}>{e}</li>)}
       </ul>
     </div>

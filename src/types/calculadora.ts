@@ -1438,3 +1438,55 @@ export function calcularConsolidadoLdpe(items: EstructuraLdpeItem[]): ResumenCon
 }
 
 
+
+// ── Frames y clicks HP Indigo ───────────────────────────────────────
+
+export type JuegoTintas = 'CMYK' | 'CMYKOV' | 'CMYKOG' | 'CMYKVG';
+
+export interface TintaProceso {
+  letra: string;
+  nombre: string;
+  color: string;
+}
+
+export const TINTAS_PROCESO: Record<string, TintaProceso> = {
+  C: { letra: 'C', nombre: 'Cian', color: '#00a3e0' },
+  M: { letra: 'M', nombre: 'Magenta', color: '#e6007e' },
+  Y: { letra: 'Y', nombre: 'Amarillo', color: '#ffd400' },
+  K: { letra: 'K', nombre: 'Negro', color: '#1d1d1b' },
+  O: { letra: 'O', nombre: 'Naranja', color: '#f37021' },
+  V: { letra: 'V', nombre: 'Violeta', color: '#6c3fa0' },
+  G: { letra: 'G', nombre: 'Verde', color: '#00a651' },
+  W: { letra: 'W', nombre: 'Blanco', color: '#ffffff' },
+};
+
+export const JUEGOS_TINTAS: JuegoTintas[] = ['CMYK', 'CMYKOV', 'CMYKOG', 'CMYKVG'];
+
+export interface ResultadoClicks {
+  framesAOcupar: number;
+  tintas: TintaProceso[];
+  numeroTintas: number;
+  clicksPorFrame: number;
+  clicksTotales: number;
+}
+
+/**
+ * Cada frame impreso es 1 click por cada tinta que lleva.
+ * Frames a ocupar = piezas totales / piezas por frame, redondeado hacia arriba (un frame no se imprime a medias).
+ * El blanco (W), si lleva, suma una tinta más.
+ */
+export function calcularClicks(resultado: ResultadoCotizacion, juego: JuegoTintas, llevaBlanco: boolean): ResultadoClicks {
+  const { piezasPorFrame } = resultado.acomodo;
+  const { totalPiezas } = resultado.produccion;
+  const framesAOcupar = piezasPorFrame > 0 && totalPiezas > 0 ? Math.ceil(totalPiezas / piezasPorFrame - 1e-9) : 0;
+  const letras = juego.split('').concat(llevaBlanco ? ['W'] : []);
+  const tintas = letras.map((l) => TINTAS_PROCESO[l]);
+  const numeroTintas = tintas.length;
+  return {
+    framesAOcupar,
+    tintas,
+    numeroTintas,
+    clicksPorFrame: numeroTintas,
+    clicksTotales: framesAOcupar * numeroTintas,
+  };
+}

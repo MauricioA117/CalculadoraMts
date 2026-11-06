@@ -230,18 +230,18 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
     <div id="multi-roll-batch-view" className="space-y-6">
       
       {/* Header Banner */}
-      <div className="card-dark p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent-ink text-xs font-bold">
+            <span className="px-2 py-0.5 rounded-full bg-blue-600/10 border border-blue-600/20 text-blue-700 text-xs font-bold">
               Bobinas surtidas y merma (base 76 cm)
             </span>
           </div>
-          <h2 className="font-display text-base sm:text-lg font-bold text-white flex items-center gap-2">
-            <PackageCheck className="w-4 h-4 text-accent-ink" />
+          <h2 className="font-display text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+            <PackageCheck className="w-4 h-4 text-blue-700" />
             Verificador de Lotes de Bobinas & Cálculo de Merma
           </h2>
-          <p className="text-xs text-white/70 font-sans max-w-2xl">
+          <p className="text-xs text-slate-600 font-sans max-w-2xl">
             Ingresa tus bobinas de inventario de diferente medida y peso para determinar si la materia prima te alcanza para los metros lineales requeridos y cuántos kilos de merma por refile se generarán (considerando bobinas estándar de 76 cm).
           </p>
         </div>
@@ -251,7 +251,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
             <button
               type="button"
               onClick={handleSyncFromPrensa}
-              className="px-3 py-2 rounded bg-accent/10 hover:bg-accent/20 border border-accent/30 text-accent-ink text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+              className="px-3 py-2 rounded bg-blue-600/10 hover:bg-blue-600/20 border border-blue-600/30 text-blue-700 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
               title="Importar metros lineales y ancho de la Calculadora de Prensa HP"
             >
               <Sparkles className="w-3.5 h-3.5" />
@@ -262,17 +262,17 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
           <button
             type="button"
             onClick={handleCopyDispatchTicket}
-            className="px-3.5 py-2 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+            className="px-3.5 py-2 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
             title="Copiar Ticket de Despacho para Almacén / Producción"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400">¡Ticket Copiado!</span>
+                <Check className="w-3.5 h-3.5 text-emerald-700" />
+                <span className="text-emerald-700">¡Ticket Copiado!</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5 text-accent-ink" />
+                <Copy className="w-3.5 h-3.5 text-blue-700" />
                 <span>Copiar Despacho</span>
               </>
             )}
@@ -281,16 +281,16 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
       </div>
 
       {/* Target Requirements & Substrate Bar */}
-      <div className="card-dark p-5 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
           <div>
-            <span className="meta-label text-accent-ink">Meta del Pedido & Sustrato</span>
-            <h3 className="font-display text-sm text-white font-bold">
+            <span className="meta-label text-blue-700">Meta del Pedido & Sustrato</span>
+            <h3 className="font-display text-sm text-slate-900 font-bold">
               Metros Requeridos, Ancho Útil y Película
             </h3>
           </div>
-          <div className="text-xs text-white/62 bg-white/5 px-2.5 py-1 rounded border border-white/10">
-            Gramaje: <strong className="text-white font-bold">{resultado.gramaje.toFixed(2)} g/m²</strong>
+          <div className="text-xs text-slate-500 bg-slate-50 px-2.5 py-1 rounded border border-slate-200">
+            Gramaje: <strong className="text-slate-900 font-bold">{resultado.gramaje.toFixed(2)} g/m²</strong>
           </div>
         </div>
 
@@ -301,7 +301,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
               <span className="meta-label">Metros Req. (ML)</span>
-              <span className="text-xs text-sky-400 font-bold">Meta de tirada</span>
+              <span className="text-xs text-sky-700 font-bold">Meta de tirada</span>
             </div>
             <input
               type="number"
@@ -309,16 +309,16 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
               min="10"
               value={metrosRequeridos ?? ''}
               onChange={(e) => setMetrosRequeridos(parseFloat(e.target.value) || 0)}
-              className="input-dark w-full px-3 py-2 text-base font-bold text-sky-400 font-mono"
+              className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-sky-700 font-mono"
             />
-            <span className="text-xs text-white/55 block">Longitud requerida para el tiraje</span>
+            <span className="text-xs text-slate-500 block">Longitud requerida para el tiraje</span>
           </div>
 
           {/* Ancho Requerido Útil */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
               <span className="meta-label">Ancho Útil Requerido (cm)</span>
-              <span className="text-xs text-emerald-400 font-bold">Impresión / corte</span>
+              <span className="text-xs text-emerald-700 font-bold">Impresión / corte</span>
             </div>
             <input
               type="number"
@@ -327,16 +327,16 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
               max="200"
               value={anchoRequerido ?? ''}
               onChange={(e) => setAnchoRequerido(parseFloat(e.target.value) || 0)}
-              className="input-dark w-full px-3 py-2 text-base font-bold text-emerald-400 font-mono"
+              className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-emerald-700 font-mono"
             />
-            <span className="text-xs text-white/55 block">Ancho final impreso o ranurado</span>
+            <span className="text-xs text-slate-500 block">Ancho final impreso o ranurado</span>
           </div>
 
           {/* Ancho Base Estándar (76.0 cm) */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
               <span className="meta-label">Ancho Estándar Almacén</span>
-              <span className="text-xs text-accent-ink font-bold">Base 76 cm</span>
+              <span className="text-xs text-blue-700 font-bold">Base 76 cm</span>
             </div>
             <input
               type="number"
@@ -345,16 +345,16 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
               max="300"
               value={anchoBaseEstandar ?? ''}
               onChange={(e) => setAnchoBaseEstandar(parseFloat(e.target.value) || 76)}
-              className="input-dark w-full px-3 py-2 text-base font-bold text-white font-mono"
+              className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-slate-900 font-mono"
             />
-            <span className="text-xs text-white/55 block">Ancho nominal de compra/planta</span>
+            <span className="text-xs text-slate-500 block">Ancho nominal de compra/planta</span>
           </div>
 
           {/* Sustrato Rápido y Selección Catálogo */}
           <div className="space-y-1.5 sm:col-span-2 lg:col-span-1">
             <div className="flex items-center justify-between">
               <span className="meta-label">Material Evaluado</span>
-              <span className="text-xs text-accent-ink font-bold">Prensa HP</span>
+              <span className="text-xs text-blue-700 font-bold">Prensa HP</span>
             </div>
             <SelectorMaterial
               idBase="lote"
@@ -368,7 +368,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
               }}
             />
             <div className="pt-1 text-xs text-right">
-              <span className="text-white/70 font-bold">{Number(gramaje.toFixed(2))} g/m²</span>
+              <span className="text-slate-600 font-bold">{Number(gramaje.toFixed(2))} g/m²</span>
             </div>
             <AvisoValidacion errores={validarEstructura([{ nombre: nombreMaterial, micras }]).errores} />
           </div>
@@ -377,7 +377,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
       </div>
 
       {/* HERO STATUS BANNER: REACHED OR DEFICIT */}
-      <div className={`card-dark p-5 border-l-4 ${
+      <div className={`bg-white rounded-2xl border border-slate-200 shadow-sm p-5 border-l-4 ${
         resultado.alcanzaMaterial 
           ? 'border-l-emerald-500 bg-emerald-500/[0.07]' 
           : 'border-l-rose-500 bg-rose-500/[0.07]'
@@ -387,39 +387,39 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
           <div className="flex items-start gap-3.5">
             {resultado.alcanzaMaterial ? (
               <div className="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5">
-                <CheckCircle2 className="w-6 h-6 text-emerald-400" />
+                <CheckCircle2 className="w-6 h-6 text-emerald-700" />
               </div>
             ) : (
               <div className="w-10 h-10 rounded-full bg-rose-500/20 border border-rose-500/30 flex items-center justify-center shrink-0 mt-0.5">
-                <XCircle className="w-6 h-6 text-rose-400" />
+                <XCircle className="w-6 h-6 text-rose-700" />
               </div>
             )}
 
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className={`text-xs font-bold px-2 py-0.5 rounded ${
-                  resultado.alcanzaMaterial ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
+                  resultado.alcanzaMaterial ? 'bg-emerald-500/20 text-emerald-700' : 'bg-rose-500/20 text-rose-700'
                 }`}>
                   {resultado.alcanzaMaterial ? 'Materia prima suficiente' : 'Falta materia prima'}
                 </span>
-                <span className="text-xs text-white/62">
-                  Cobertura: <strong className="text-white">{resultado.porcentajeCobertura.toFixed(1)}%</strong>
+                <span className="text-xs text-slate-500">
+                  Cobertura: <strong className="text-slate-900">{resultado.porcentajeCobertura.toFixed(1)}%</strong>
                 </span>
               </div>
 
-              <h3 className="text-lg sm:text-xl font-display font-bold text-white tracking-tight">
+              <h3 className="text-lg sm:text-xl font-display font-bold text-slate-900 tracking-tight">
                 {resultado.alcanzaMaterial ? (
                   <span>
-                    El lote cubre el pedido con un excedente de <strong className="text-emerald-400">+{resultado.metrosSobrantes.toLocaleString()} ML</strong> (~{resultado.kilosSobrantes} kg)
+                    El lote cubre el pedido con un excedente de <strong className="text-emerald-700">+{resultado.metrosSobrantes.toLocaleString()} ML</strong> (~{resultado.kilosSobrantes} kg)
                   </span>
                 ) : (
                   <span>
-                    Faltan <strong className="text-rose-400">{resultado.metrosFaltantes.toLocaleString()} ML</strong> para completar el tiraje
+                    Faltan <strong className="text-rose-700">{resultado.metrosFaltantes.toLocaleString()} ML</strong> para completar el tiraje
                   </span>
                 )}
               </h3>
 
-              <p className="text-xs text-white/70">
+              <p className="text-xs text-slate-600">
                 {resultado.alcanzaMaterial ? (
                   resultado.indiceBobinaMeta >= 0 ? (
                     <>Meta de tiraje alcanzada en la <strong>Bobina #{resultado.indiceBobinaMeta + 1} ({resultado.bobinas[resultado.indiceBobinaMeta]?.codigo})</strong>. Se requieren {resultado.empalmesEstimados} cambio(s) de rollo.</>
@@ -427,47 +427,47 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                     <>El material ingresado cubre exactamente el pedido.</>
                   )
                 ) : (
-                  <>Se requiere solicitar al almacén <strong className="text-rose-400 font-bold">{resultado.kilosFaltantes} kg adicionales</strong> de bobina estándar de {resultado.anchoBaseEstandarCm} cm.</>
+                  <>Se requiere solicitar al almacén <strong className="text-rose-700 font-bold">{resultado.kilosFaltantes} kg adicionales</strong> de bobina estándar de {resultado.anchoBaseEstandarCm} cm.</>
                 )}
               </p>
             </div>
           </div>
 
           {/* Quick Summary Numbers */}
-          <div className="flex items-center gap-4 bg-black/40 border border-white/10 px-4 py-2.5 rounded-lg shrink-0 font-mono text-xs">
+          <div className="flex items-center gap-4 bg-slate-100 border border-slate-200 px-4 py-2.5 rounded-lg shrink-0 font-mono text-xs">
             <div>
-              <span className="text-xs text-white/55 block">Total Disponible:</span>
-              <strong className="text-white text-sm">{resultado.metrosLinealesTotales.toLocaleString()} ML</strong>
+              <span className="text-xs text-slate-500 block">Total Disponible:</span>
+              <strong className="text-slate-900 text-sm">{resultado.metrosLinealesTotales.toLocaleString()} ML</strong>
             </div>
-            <div className="w-px h-7 bg-white/10"></div>
+            <div className="w-px h-7 bg-slate-100"></div>
             <div>
-              <span className="text-xs text-white/55 block">Meta Tirada:</span>
-              <strong className="text-sky-400 text-sm">{resultado.metrosRequeridos.toLocaleString()} ML</strong>
+              <span className="text-xs text-slate-500 block">Meta Tirada:</span>
+              <strong className="text-sky-700 text-sm">{resultado.metrosRequeridos.toLocaleString()} ML</strong>
             </div>
-            <div className="w-px h-7 bg-white/10"></div>
+            <div className="w-px h-7 bg-slate-100"></div>
             <div>
-              <span className="text-xs text-white/55 block">Merma Refile:</span>
-              <strong className="text-accent-ink text-sm">{resultado.mermaRefileTotalKg} kg</strong>
+              <span className="text-xs text-slate-500 block">Merma Refile:</span>
+              <strong className="text-blue-700 text-sm">{resultado.mermaRefileTotalKg} kg</strong>
             </div>
           </div>
 
         </div>
 
         {/* Visual Progress Bar of Cumulative Meters vs Target */}
-        <div className="mt-4 pt-3 border-t border-white/10 space-y-1.5 font-mono text-xs">
+        <div className="mt-4 pt-3 border-t border-slate-200 space-y-1.5 font-mono text-xs">
           <div className="flex justify-between text-xs">
-            <span className="text-white/70">
-              Avance acumulado del lote: <strong className="text-white">{resultado.metrosLinealesTotales.toLocaleString()}</strong> de {resultado.metrosRequeridos.toLocaleString()} ML
+            <span className="text-slate-600">
+              Avance acumulado del lote: <strong className="text-slate-900">{resultado.metrosLinealesTotales.toLocaleString()}</strong> de {resultado.metrosRequeridos.toLocaleString()} ML
             </span>
-            <span className={resultado.alcanzaMaterial ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>
+            <span className={resultado.alcanzaMaterial ? 'text-emerald-700 font-bold' : 'text-rose-700 font-bold'}>
               {resultado.porcentajeCobertura.toFixed(1)}%
             </span>
           </div>
 
-          <div className="w-full h-3 bg-black/50 rounded-full overflow-hidden flex border border-white/10 relative">
+          <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden flex border border-slate-200 relative">
             {/* Target 100% threshold marker */}
             <div 
-              className="absolute top-0 bottom-0 w-0.5 bg-white z-10 "
+              className="absolute top-0 bottom-0 w-0.5 bg-slate-900 z-10 "
               style={{ left: `${Math.min(100, (100 / (resultado.porcentajeCobertura > 100 ? resultado.porcentajeCobertura : 100)) * 100)}%` }}
               title="Meta 100%"
             />
@@ -479,8 +479,8 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
               return (
                 <div
                   key={`progress-seg-${b.id}`}
-                  className={`h-full border-r border-black/40 transition-all ${
-                    idx % 2 === 0 ? 'bg-accent' : 'bg-accent/70'
+                  className={`h-full border-r border-slate-300 transition-all ${
+                    idx % 2 === 0 ? 'bg-blue-600' : 'bg-blue-600/70'
                   }`}
                   style={{ width: `${segmentPct}%` }}
                   title={`${b.codigo}: ${b.metrosLineales} ML (${b.pesoKg} kg)`}
@@ -495,73 +495,73 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* KPI 1: Merma Total por Refile */}
-        <div className="card-dark p-5 space-y-1 relative overflow-hidden bg-accent/[0.07]">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-1 relative overflow-hidden bg-blue-600/[0.07]">
           <div className="flex items-center justify-between">
-            <span className="meta-label text-accent-ink">Merma por refile</span>
-            <span className="text-xs px-1.5 py-0.5 rounded bg-accent/20 text-accent-ink font-bold">
+            <span className="meta-label text-blue-700">Merma por refile</span>
+            <span className="text-xs px-1.5 py-0.5 rounded bg-blue-600/20 text-blue-700 font-bold">
               {resultado.porcentajeMermaGlobal.toFixed(1)}% refile
             </span>
           </div>
-          <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight flex items-baseline gap-1.5">
+          <div className="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight flex items-baseline gap-1.5">
             <span>{resultado.mermaRefileTotalKg.toLocaleString()}</span>
-            <span className="text-lg font-mono text-accent-ink">KG</span>
+            <span className="text-lg font-mono text-blue-700">KG</span>
           </div>
-          <p className="text-xs text-white/70">
+          <p className="text-xs text-slate-600">
             Desecho de orillas al refilar cada bobina al ancho útil requerido ({resultado.anchoRequeridoCm} cm).
           </p>
         </div>
 
         {/* KPI 2: Kilos Útiles Que Quedan */}
-        <div className="card-dark p-5 border-l-4 border-l-emerald-500 space-y-1 relative overflow-hidden bg-emerald-500/[0.07]">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 border-l-4 border-l-emerald-500 space-y-1 relative overflow-hidden bg-emerald-500/[0.07]">
           <div className="flex items-center justify-between">
-            <span className="meta-label text-emerald-400">Kilos útiles netos</span>
-            <span className="text-xs px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
+            <span className="meta-label text-emerald-700">Kilos útiles netos</span>
+            <span className="text-xs px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-700 font-bold">
               Aprovechado
             </span>
           </div>
-          <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight flex items-baseline gap-1.5">
+          <div className="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight flex items-baseline gap-1.5">
             <span>{resultado.kilosUtilesTotales.toLocaleString()}</span>
-            <span className="text-lg font-mono text-emerald-400">KG</span>
+            <span className="text-lg font-mono text-emerald-700">KG</span>
           </div>
-          <p className="text-xs text-white/70">
+          <p className="text-xs text-slate-600">
             Peso neto de material aprovechado para el tiraje ({100 - resultado.porcentajeMermaGlobal > 0 ? (100 - resultado.porcentajeMermaGlobal).toFixed(1) : 0}%).
           </p>
         </div>
 
         {/* KPI 3: Metros Lineales Disponibles */}
-        <div className="card-dark p-5 border-l-4 border-l-sky-500 space-y-1 relative overflow-hidden bg-sky-500/[0.07]">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 border-l-4 border-l-sky-500 space-y-1 relative overflow-hidden bg-sky-500/[0.07]">
           <div className="flex items-center justify-between">
-            <span className="meta-label text-sky-400">Metros disponibles</span>
-            <span className="text-xs px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">
+            <span className="meta-label text-sky-700">Metros disponibles</span>
+            <span className="text-xs px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-700 font-bold">
               {resultado.totalBobinasValidas} bobinas
             </span>
           </div>
-          <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight flex items-baseline gap-1.5">
+          <div className="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight flex items-baseline gap-1.5">
             <span>{resultado.metrosLinealesTotales.toLocaleString()}</span>
-            <span className="text-lg font-mono text-sky-400">ML</span>
+            <span className="text-lg font-mono text-sky-700">ML</span>
           </div>
-          <p className="text-xs text-white/70">
+          <p className="text-xs text-slate-600">
             {resultado.diferenciaMetros >= 0 ? `+${resultado.diferenciaMetros.toLocaleString()} ML de saldo a favor` : `-${Math.abs(resultado.diferenciaMetros).toLocaleString()} ML de déficit`}.
           </p>
         </div>
 
         {/* KPI 4: Kilos Faltantes o Sobrantes */}
-        <div className={`card-dark p-5 border-l-4 ${resultado.alcanzaMaterial ? 'border-l-teal-500' : 'border-l-rose-500'} space-y-1 relative overflow-hidden`}>
+        <div className={`bg-white rounded-2xl border border-slate-200 shadow-sm p-5 border-l-4 ${resultado.alcanzaMaterial ? 'border-l-teal-500' : 'border-l-rose-500'} space-y-1 relative overflow-hidden`}>
           <div className="flex items-center justify-between">
-            <span className={`meta-label ${resultado.alcanzaMaterial ? 'text-teal-400' : 'text-rose-400'}`}>
+            <span className={`meta-label ${resultado.alcanzaMaterial ? 'text-teal-700' : 'text-rose-700'}`}>
               {resultado.alcanzaMaterial ? 'Sobrante remanente' : 'Kilos por pedir'}
             </span>
             <span className={`text-xs px-1.5 py-0.5 rounded font-bold ${
-              resultado.alcanzaMaterial ? 'bg-teal-500/20 text-teal-300' : 'bg-rose-500/20 text-rose-300'
+              resultado.alcanzaMaterial ? 'bg-teal-500/20 text-teal-700' : 'bg-rose-500/20 text-rose-700'
             }`}>
               {resultado.alcanzaMaterial ? 'En última bobina' : 'Solicitar a almacén'}
             </span>
           </div>
-          <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight flex items-baseline gap-1.5">
+          <div className="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight flex items-baseline gap-1.5">
             <span>{resultado.alcanzaMaterial ? resultado.kilosSobrantes : resultado.kilosFaltantes}</span>
-            <span className={`text-lg font-mono ${resultado.alcanzaMaterial ? 'text-teal-400' : 'text-rose-400'}`}>KG</span>
+            <span className={`text-lg font-mono ${resultado.alcanzaMaterial ? 'text-teal-700' : 'text-rose-700'}`}>KG</span>
           </div>
-          <p className="text-xs text-white/70">
+          <p className="text-xs text-slate-600">
             {resultado.alcanzaMaterial 
               ? `Kilos no consumidos que quedarán en máquina.` 
               : `Kilos requeridos en bobina de ${resultado.anchoBaseEstandarCm}cm.`}
@@ -571,11 +571,11 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
       </div>
 
       {/* Step 2: Inventory Rolls Interactive Table */}
-      <div className="card-dark p-5 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
           <div>
-            <span className="meta-label text-accent-ink">Lote de Bobinas de Inventario</span>
-            <h3 className="font-display text-sm text-white font-bold">
+            <span className="meta-label text-blue-700">Lote de Bobinas de Inventario</span>
+            <h3 className="font-display text-sm text-slate-900 font-bold">
               Registro de Bobinas Surtidas (Medida & Peso)
             </h3>
           </div>
@@ -591,7 +591,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                   { id: 'roll-3', codigo: 'BOB-76-A3', pesoKg: 40, anchoCm: 76.0, activo: true },
                 ]);
               }}
-              className="btn-dark-secondary px-2.5 py-1 text-xs cursor-pointer"
+              className="bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 rounded-lg font-semibold transition-colors px-2.5 py-1 text-xs cursor-pointer"
             >
               Lote 3×76cm
             </button>
@@ -606,7 +606,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                   { id: 'roll-4', codigo: 'BOB-76-04', pesoKg: 15, anchoCm: 76.0, activo: true },
                 ]);
               }}
-              className="btn-dark-secondary px-2.5 py-1 text-xs cursor-pointer"
+              className="bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 rounded-lg font-semibold transition-colors px-2.5 py-1 text-xs cursor-pointer"
             >
               Lote Medidas Mixtas
             </button>
@@ -624,8 +624,8 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
 
         {/* Warning if any rolls were rejected because ancho < anchoRequerido */}
         {resultado.totalBobinasRechazadas > 0 && (
-          <div className="p-3 rounded bg-rose-500/10 border border-rose-500/30 text-rose-200 text-xs flex items-center gap-2.5">
-            <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+          <div className="p-3 rounded bg-rose-500/10 border border-rose-500/30 text-rose-700 text-xs flex items-center gap-2.5">
+            <AlertTriangle className="w-4 h-4 text-rose-700 shrink-0" />
             <div>
               <strong>Atención:</strong> Se detectaron {resultado.totalBobinasRechazadas} bobina(s) con ancho menor a la medida requerida ({anchoRequerido} cm). Esas bobinas fueron marcadas como <strong>ANCHO INSUFICIENTE</strong> y no se sumaron a los metros lineales disponibles.
             </div>
@@ -635,7 +635,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
         {/* Rolls Table */}
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-sunken text-white/62 border-b border-white/10 text-xs">
+            <thead className="bg-slate-100 text-slate-500 border-b border-slate-200 text-xs">
               <tr>
                 <th className="py-2.5 px-3 w-10 text-center">Uso</th>
                 <th className="py-2.5 px-3"># / Código</th>
@@ -644,7 +644,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                 <th className="py-2.5 px-3">Aporte (ML)</th>
                 <th className="py-2.5 px-3">
                   <div>Refile / Merma</div>
-                  <span className="text-xs text-accent-ink font-normal block lowercase">
+                  <span className="text-xs text-blue-700 font-normal block lowercase">
                     (vs {resultado.anchoRequeridoCm} cm útil)
                   </span>
                 </th>
@@ -653,7 +653,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                 <th className="py-2.5 px-3 text-right">Acciones</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-slate-100">
               {resultado.bobinas.map((roll, idx) => {
                 const isRejected = !roll.esValidaAncho && roll.activo;
                 return (
@@ -661,12 +661,12 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                     key={roll.id}
                     className={`transition-colors ${
                       !roll.activo 
-                        ? 'opacity-40 bg-white/[0.01]' 
+                        ? 'opacity-40 bg-slate-50' 
                         : isRejected 
-                          ? 'bg-rose-950/20 text-rose-200' 
+                          ? 'bg-rose-50 text-rose-700' 
                           : roll.esBobinaDeCorteMeta 
-                            ? 'bg-emerald-950/30 font-bold' 
-                            : 'hover:bg-white/[0.02]'
+                            ? 'bg-emerald-50 font-bold' 
+                            : 'hover:bg-slate-50'
                     }`}
                   >
                     {/* Checkbox active */}
@@ -675,7 +675,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                         type="checkbox"
                         checked={Boolean(roll.activo)}
                         onChange={() => handleToggleRoll(roll.id)}
-                        className="rounded border-white/20 text-accent-ink focus:ring-0 cursor-pointer"
+                        className="rounded border-slate-300 text-blue-700 focus:ring-0 cursor-pointer"
                         title={roll.activo ? 'Desactivar bobina' : 'Activar bobina'}
                       />
                     </td>
@@ -683,15 +683,15 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                     {/* Code / ID */}
                     <td className="py-2.5 px-3">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-white/55 text-xs">#{idx + 1}</span>
+                        <span className="text-slate-500 text-xs">#{idx + 1}</span>
                         <input
                           type="text"
                           value={roll.codigo ?? ''}
                           onChange={(e) => handleUpdateRoll(roll.id, 'codigo', e.target.value)}
-                          className="bg-transparent border-b border-white/10 focus:border-accent px-1 py-0.5 text-xs text-white font-mono outline-none w-28"
+                          className="bg-transparent border-b border-slate-200 focus:border-blue-600 px-1 py-0.5 text-xs text-slate-900 font-mono outline-none w-28"
                         />
                         {roll.esBobinaDeCorteMeta && (
-                          <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/30 whitespace-nowrap">
+                          <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-700 text-xs font-bold border border-emerald-500/30 whitespace-nowrap">
                             ⭐️ META 100%
                           </span>
                         )}
@@ -707,9 +707,9 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                           min="0.1"
                           value={roll.pesoKg ?? ''}
                           onChange={(e) => handleUpdateRoll(roll.id, 'pesoKg', parseFloat(e.target.value) || 0)}
-                          className="input-dark px-2 py-1 text-xs font-bold text-white font-mono w-20"
+                          className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition px-2 py-1 text-xs font-bold text-slate-900 font-mono w-20"
                         />
-                        <span className="text-xs text-white/55">kg</span>
+                        <span className="text-xs text-slate-500">kg</span>
                       </div>
                     </td>
 
@@ -723,14 +723,14 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                           max="250"
                           value={roll.anchoCm ?? ''}
                           onChange={(e) => handleUpdateRoll(roll.id, 'anchoCm', parseFloat(e.target.value) || 0)}
-                          className={`input-dark px-2 py-1 text-xs font-bold font-mono w-20 ${
-                            isRejected ? 'border-rose-500 text-rose-300' : 'text-white'
+                          className={`bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition px-2 py-1 text-xs font-bold font-mono w-20 ${
+                            isRejected ? 'border-rose-500 text-rose-700' : 'text-slate-900'
                           }`}
                         />
-                        <span className="text-xs text-white/55">cm</span>
+                        <span className="text-xs text-slate-500">cm</span>
                       </div>
                       {isRejected && (
-                        <span className="text-xs text-rose-400 block pt-0.5">
+                        <span className="text-xs text-rose-700 block pt-0.5">
                           Menor a {anchoRequerido} cm
                         </span>
                       )}
@@ -740,13 +740,13 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                     <td className="py-2.5 px-3">
                       {roll.activo && roll.esValidaAncho ? (
                         <div className="flex items-baseline gap-1">
-                          <strong className="text-sky-400 font-bold text-sm">
+                          <strong className="text-sky-700 font-bold text-sm">
                             {roll.metrosLineales.toLocaleString()}
                           </strong>
-                          <span className="text-xs text-white/55">ML</span>
+                          <span className="text-xs text-slate-500">ML</span>
                         </div>
                       ) : (
-                        <span className="text-white/45 italic">0 ML</span>
+                        <span className="text-slate-400 italic">0 ML</span>
                       )}
                     </td>
 
@@ -754,29 +754,29 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                     <td className="py-2.5 px-3">
                       {roll.activo && roll.esValidaAncho ? (
                         <div>
-                          <div className="flex items-baseline gap-1 text-accent-ink">
+                          <div className="flex items-baseline gap-1 text-blue-700">
                             <strong className="font-bold">{roll.mermaRefileKg}</strong>
                             <span className="text-xs">kg</span>
-                            <span className="text-white/55 text-xs">({roll.porcentajeMerma}%)</span>
+                            <span className="text-slate-500 text-xs">({roll.porcentajeMerma}%)</span>
                           </div>
-                          <span className="text-xs text-white/55 block">
+                          <span className="text-xs text-slate-500 block">
                             Corte: {roll.refileCm} cm (a {resultado.anchoRequeridoCm} cm)
                           </span>
                         </div>
                       ) : (
-                        <span className="text-white/45">—</span>
+                        <span className="text-slate-400">—</span>
                       )}
                     </td>
 
                     {/* Kilos Útiles */}
                     <td className="py-2.5 px-3">
                       {roll.activo && roll.esValidaAncho ? (
-                        <div className="flex items-baseline gap-1 text-emerald-400">
+                        <div className="flex items-baseline gap-1 text-emerald-700">
                           <strong className="font-bold">{roll.kilosUtilesKg}</strong>
                           <span className="text-xs">kg</span>
                         </div>
                       ) : (
-                        <span className="text-white/45">—</span>
+                        <span className="text-slate-400">—</span>
                       )}
                     </td>
 
@@ -784,15 +784,15 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                     <td className="py-2.5 px-3">
                       {roll.activo && roll.esValidaAncho ? (
                         <div>
-                          <div className="text-white font-bold text-xs">
+                          <div className="text-slate-900 font-bold text-xs">
                             {roll.metrosAcumulados.toLocaleString()} ML
                           </div>
-                          <span className={`text-xs ${roll.porcentajeCoberturaAcumulado >= 100 ? 'text-emerald-400' : 'text-white/62'}`}>
+                          <span className={`text-xs ${roll.porcentajeCoberturaAcumulado >= 100 ? 'text-emerald-700' : 'text-slate-500'}`}>
                             {roll.porcentajeCoberturaAcumulado}%
                           </span>
                         </div>
                       ) : (
-                        <span className="text-white/45">—</span>
+                        <span className="text-slate-400">—</span>
                       )}
                     </td>
 
@@ -802,7 +802,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                         <button
                           type="button"
                           onClick={() => handleDuplicateRoll(idx)}
-                          className="p-1 rounded bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors"
+                          className="p-1 rounded bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors"
                           title="Duplicar bobina"
                         >
                           <Copy className="w-3.5 h-3.5" />
@@ -811,7 +811,7 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                           type="button"
                           onClick={() => handleRemoveRoll(roll.id)}
                           disabled={bobinas.length <= 1}
-                          className="p-1 rounded bg-white/5 hover:bg-rose-500/20 text-white/70 hover:text-rose-400 transition-colors disabled:opacity-30 cursor-pointer"
+                          className="p-1 rounded bg-slate-50 hover:bg-rose-500/20 text-slate-600 hover:text-rose-700 transition-colors disabled:opacity-30 cursor-pointer"
                           title="Eliminar bobina"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -823,19 +823,19 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
                 );
               })}
             </tbody>
-            <tfoot className="bg-sunken text-white border-t border-white/10 font-bold">
+            <tfoot className="bg-slate-100 text-slate-900 border-t border-slate-200 font-bold">
               <tr>
-                <td className="py-3 px-3 text-center text-white/55">∑</td>
+                <td className="py-3 px-3 text-center text-slate-500">∑</td>
                 <td className="py-3 px-3">TOTALES ({resultado.totalBobinasValidas} válidas)</td>
-                <td className="py-3 px-3 text-white">{resultado.kilosBrutosTotales} kg</td>
+                <td className="py-3 px-3 text-slate-900">{resultado.kilosBrutosTotales} kg</td>
                 <td className="py-3 px-3">
-                  <div className="text-xs text-emerald-400 font-mono">Útil: {resultado.anchoRequeridoCm} cm</div>
-                  <div className="text-xs text-white/55">Base: {anchoBaseEstandar} cm</div>
+                  <div className="text-xs text-emerald-700 font-mono">Útil: {resultado.anchoRequeridoCm} cm</div>
+                  <div className="text-xs text-slate-500">Base: {anchoBaseEstandar} cm</div>
                 </td>
-                <td className="py-3 px-3 text-sky-400">{resultado.metrosLinealesTotales.toLocaleString()} ML</td>
-                <td className="py-3 px-3 text-accent-ink">{resultado.mermaRefileTotalKg} kg ({resultado.porcentajeMermaGlobal.toFixed(1)}%)</td>
-                <td className="py-3 px-3 text-emerald-400">{resultado.kilosUtilesTotales} kg</td>
-                <td className="py-3 px-3 text-white">{resultado.porcentajeCobertura.toFixed(1)}%</td>
+                <td className="py-3 px-3 text-sky-700">{resultado.metrosLinealesTotales.toLocaleString()} ML</td>
+                <td className="py-3 px-3 text-blue-700">{resultado.mermaRefileTotalKg} kg ({resultado.porcentajeMermaGlobal.toFixed(1)}%)</td>
+                <td className="py-3 px-3 text-emerald-700">{resultado.kilosUtilesTotales} kg</td>
+                <td className="py-3 px-3 text-slate-900">{resultado.porcentajeCobertura.toFixed(1)}%</td>
                 <td className="py-3 px-3"></td>
               </tr>
             </tfoot>
@@ -844,24 +844,24 @@ ${resultado.bobinas.filter(b => b.activo).map((b, idx) => `  ${idx + 1}. [${b.co
       </div>
 
       {/* Engineering Calculation Formulas & Audit Card */}
-      <div className="p-4 rounded bg-white/[0.02] border border-white/10 font-mono text-xs space-y-2">
-        <div className="flex items-center gap-1.5 text-white/80 font-bold text-xs">
-          <Info className="w-3.5 h-3.5 text-accent-ink" />
+      <div className="p-4 rounded bg-slate-50 border border-slate-200 font-mono text-xs space-y-2">
+        <div className="flex items-center gap-1.5 text-slate-700 font-bold text-xs">
+          <Info className="w-3.5 h-3.5 text-blue-700" />
           <span>Fórmulas de Auditoría de Lotes y Merma de Refile (76 cm)</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-white/70 text-xs pt-1">
-          <div className="bg-black/30 p-2.5 rounded border border-white/5 space-y-1">
-            <span className="text-white font-bold block">1. Aporte en Metros Lineales por Bobina:</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-600 text-xs pt-1">
+          <div className="bg-slate-100 p-2.5 rounded border border-slate-100 space-y-1">
+            <span className="text-slate-900 font-bold block">1. Aporte en Metros Lineales por Bobina:</span>
             <code>ML = (Peso_kg × 1000) / [ Gramaje (g/m²) × (Ancho_Bobina_cm / 100) ]</code>
-            <p className="text-xs text-white/55 pt-0.5">
+            <p className="text-xs text-slate-500 pt-0.5">
               Cada bobina se convierte con su propio ancho y peso real. Si el ancho es inferior a {resultado.anchoRequeridoCm} cm, no califica para el tiraje.
             </p>
           </div>
 
-          <div className="bg-black/30 p-2.5 rounded border border-white/5 space-y-1">
-            <span className="text-white font-bold block">2. Merma por Refile Lateral (Base {anchoBaseEstandar} cm):</span>
+          <div className="bg-slate-100 p-2.5 rounded border border-slate-100 space-y-1">
+            <span className="text-slate-900 font-bold block">2. Merma por Refile Lateral (Base {anchoBaseEstandar} cm):</span>
             <code>Merma_kg = [ ML × Gramaje × ((Ancho_Bobina - {resultado.anchoRequeridoCm}) / 100) ] / 1000</code>
-            <p className="text-xs text-white/55 pt-0.5">
+            <p className="text-xs text-slate-500 pt-0.5">
               Refile generado = <strong>{resultado.mermaRefileTotalKg} kg</strong> ({resultado.porcentajeMermaGlobal.toFixed(1)}% del peso bruto ingresado).
             </p>
           </div>

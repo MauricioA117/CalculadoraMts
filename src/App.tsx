@@ -4,6 +4,8 @@ import {
   ParametrosCotizacion, 
   calcularIngenieriaEmpaque, 
   calcularBobinaIndividual,
+  calcularClicks,
+  JuegoTintas,
   ESTRUCTURAS_PREDEFINIDAS, 
   EstructuraPredefinida,
   FRAME_MAX_ANCHO,
@@ -20,25 +22,16 @@ import { RawMaterialCalculator } from './components/RawMaterialCalculator';
 import { MultiRollBatchCalculator } from './components/MultiRollBatchCalculator';
 import { KgSinImpresionCalculator } from './components/KgSinImpresionCalculator';
 import { LdpeMetersCalculator } from './components/LdpeMetersCalculator';
-import { 
-  Calculator, 
-  RefreshCw,
+import { ClicksCalculator } from './components/ClicksCalculator';
+import { AppShell } from './components/AppShell';
+import {
   Printer,
-  Layers,
-  Sliders,
   Disc,
-  Boxes,
-  Cpu,
   RotateCcw,
-  Zap,
-  Menu,
-  X,
   Scissors,
   PackageCheck,
   Scale,
   Ruler,
-  Sun,
-  Moon,
   type LucideIcon
 } from 'lucide-react';
 
@@ -62,33 +55,9 @@ const MODULOS: ModuloInfo[] = [
   { id: 'calculadora_mts_ldpe', navId: 'nav-module-ldpe-meters-btn', label: 'Metros en LDPE', titulo: 'Metros en LDPE', descripcion: 'Laminación, rendimiento y control de stock y faltantes.', icon: Ruler },
 ];
 
-/** Marca de registro de imprenta: el motivo gráfico de la marca. */
-function MarcaRegistro({ className = '' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 32 32" className={className} fill="none" aria-hidden="true">
-      <circle cx="16" cy="16" r="8.5" stroke="currentColor" strokeWidth="1.75" />
-      <path d="M16 2v8M16 22v8M2 16h8M22 16h8" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-      <circle cx="16" cy="16" r="3" fill="var(--c-accent)" />
-    </svg>
-  );
-}
-
 export default function App() {
   // Mode selection: Impresión HP Indigo (Frame / Imposición) vs Bobina Individual
   const [modo, setModo] = useState<ModoCalculo>('impresion_frame');
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
-  const [tema, setTema] = useState<'light' | 'dark'>(() =>
-    document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
-  );
-
-  const toggleTema = () => {
-    const siguiente = tema === 'dark' ? 'light' : 'dark';
-    setTema(siguiente);
-    document.documentElement.setAttribute('data-theme', siguiente);
-    try { localStorage.setItem('mts-theme', siguiente); } catch { /* sin almacenamiento */ }
-  };
-
-  const moduloActual = MODULOS.find((m) => m.id === modo) ?? MODULOS[0];
 
   // Input parameters state for HP Indigo Frame calculation
   const [anchoEmpaque, setAnchoEmpaque] = useState<number>(24.0);
@@ -136,6 +105,11 @@ export default function App() {
   }, [anchoEmpaque, altoEmpaque, kilosSolicitados, tolerancia, capas, anchoBobinaNatural, anchoFrame, altoFrame]);
 
   // Reactive calculation execution for Bobina Individual mode
+  // Frames a ocupar y clicks (1 click por tinta en cada frame)
+  const [juegoTintas, setJuegoTintas] = useState<JuegoTintas>('CMYK');
+  const [llevaBlanco, setLlevaBlanco] = useState<boolean>(false);
+  const clicks = useMemo(() => calcularClicks(resultado, juegoTintas, llevaBlanco), [resultado, juegoTintas, llevaBlanco]);
+
   const resultadoBobina = useMemo(() => {
     return calcularBobinaIndividual(anchoBobinaIndividual, kilosBobinaIndividual, capas);
   }, [anchoBobinaIndividual, kilosBobinaIndividual, capas]);
@@ -165,6 +139,8 @@ export default function App() {
     setAltoFrame(FRAME_MAX_ALTO);
     setAnchoBobinaIndividual(30.0);
     setKilosBobinaIndividual(100);
+    setJuegoTintas('CMYK');
+    setLlevaBlanco(false);
     setCapas([
       {
         id: 'layer-init-1',
@@ -194,201 +170,36 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-bg text-white font-sans flex flex-col">
-      <div className="flex-1 flex flex-col lg:flex-row w-full">
-
-        {/* Fondo del menú en móvil */}
-        {sidebarOpen && (
-          <div
-            className="fixed inset-0 z-30 lg:hidden"
-            style={{ background: 'rgba(10, 12, 30, 0.55)' }}
-            onClick={() => setSidebarOpen(false)}
-            aria-hidden="true"
-          />
-        )}
-
-        {/* Barra lateral */}
-        <aside
-          id="sidebar"
-          aria-label="Navegación principal"
-          className={`fixed inset-y-0 left-0 z-40 w-[280px] max-w-[85vw] bg-surface border-r border-white/10 flex flex-col justify-between overflow-y-auto shrink-0 transition-transform duration-200 lg:sticky lg:top-0 lg:h-screen lg:z-auto lg:translate-x-0 ${
-            sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+    <AppShell<ModoCalculo>
+      nombreApp="Calculadora de MTs"
+      subtitulo="Impresión Digital"
+      etiqueta="HP Indigo 20K"
+      opciones={MODULOS.map((m) => {
+        const Icono = m.icon;
+        return { id: m.id, label: m.label, icon: <Icono className="w-[18px] h-[18px] shrink-0" /> };
+      })}
+      activa={modo}
+      onCambiar={setModo}
+      acciones={
+        <button
+          type="button"
+          onClick={handleResetDefaults}
+          className="h-10 px-3 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 text-sm font-semibold flex items-center gap-1.5 cursor-pointer"
+          title="Restablecer valores"
         >
-          <div>
-            <div className="flex items-center justify-between px-5 pt-5 pb-4">
-              <div className="flex items-center gap-3">
-                <MarcaRegistro className="w-8 h-8 text-white shrink-0" />
-                <div className="leading-none">
-                  <div className="font-display text-xl font-extrabold tracking-tight">
-                    Indigo<span className="text-accent-ink">20K</span>
-                  </div>
-                  <div className="text-xs text-white/62 mt-1.5">Calculadora de metros</div>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setSidebarOpen(false)}
-                className="lg:hidden p-2 rounded-lg hover:bg-white/5 text-white/70"
-                aria-label="Cerrar menú"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <nav aria-label="Módulos de cálculo" className="px-3 pb-4">
-              <span className="meta-label px-2 pb-2">Módulos</span>
-              <div className="space-y-0.5">
-                {MODULOS.map((m) => {
-                  const Icono = m.icon;
-                  const activo = modo === m.id;
-                  return (
-                    <button
-                      key={m.id}
-                      id={m.navId}
-                      type="button"
-                      aria-current={activo ? 'page' : undefined}
-                      onClick={() => {
-                        setModo(m.id);
-                        setSidebarOpen(false);
-                      }}
-                      className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors cursor-pointer ${
-                        activo
-                          ? 'bg-accent text-white font-semibold'
-                          : 'text-white/75 hover:bg-white/5 hover:text-white'
-                      }`}
-                    >
-                      <Icono className="w-4 h-4 shrink-0" />
-                      <span className="truncate">{m.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </nav>
-
-            <div className="px-3 pt-4 pb-4 border-t border-white/10">
-              <span className="meta-label px-2 pb-2">Plantillas frecuentes</span>
-              <div className="space-y-0.5">
-                {ESTRUCTURAS_PREDEFINIDAS.slice(0, 4).map((preset) => (
-                  <button
-                    key={`sidebar-preset-${preset.id}`}
-                    type="button"
-                    onClick={() => {
-                      handleApplyPreset(preset);
-                      setSidebarOpen(false);
-                    }}
-                    className="w-full text-left px-3 py-2 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors truncate block cursor-pointer"
-                  >
-                    {preset.nombre}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <dl className="px-5 py-4 border-t border-white/10 text-xs space-y-1.5">
-            <div className="flex justify-between gap-3">
-              <dt className="text-white/62">Prensa</dt>
-              <dd className="font-mono font-medium">HP Indigo</dd>
-            </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-white/62">Frame útil</dt>
-              <dd className="font-mono font-medium">{anchoFrame.toFixed(1)} × {altoFrame.toFixed(1)} cm</dd>
-            </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-white/62">Bobina base</dt>
-              <dd className="font-mono font-medium">{anchoBobinaNatural.toFixed(1)} cm</dd>
-            </div>
-            <div className="flex justify-between gap-3">
-              <dt className="text-white/62">Versión</dt>
-              <dd className="font-mono font-medium">4.2</dd>
-            </div>
-          </dl>
-        </aside>
-
-        {/* Área principal */}
-        <div className="flex-1 flex flex-col min-w-0">
-
-          <header className="sticky top-0 z-20 bg-surface border-b border-white/10">
-            <div className="px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3 min-w-0">
-                <button
-                  type="button"
-                  onClick={() => setSidebarOpen(true)}
-                  className="lg:hidden p-2.5 rounded-lg btn-dark-secondary shrink-0"
-                  aria-label="Abrir menú"
-                  aria-expanded={sidebarOpen}
-                  aria-controls="sidebar"
-                >
-                  <Menu className="w-4 h-4" />
-                </button>
-                <div className="min-w-0">
-                  <h1 className="font-display text-lg sm:text-xl font-bold truncate">{moduloActual.titulo}</h1>
-                  <p className="text-sm text-white/65 truncate hidden sm:block">{moduloActual.descripcion}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={toggleTema}
-                  className="btn-dark-secondary p-2.5 cursor-pointer"
-                  aria-label={tema === 'dark' ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'}
-                  title={tema === 'dark' ? 'Tema claro' : 'Tema oscuro'}
-                >
-                  {tema === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleResetDefaults}
-                  className="btn-dark-secondary px-3 py-2 text-sm flex items-center gap-1.5 cursor-pointer"
-                  title="Restablecer valores"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                  <span className="hidden sm:inline">Restablecer</span>
-                </button>
-              </div>
-            </div>
-            <div className="cmyk-strip" aria-hidden="true" />
-          </header>
-
-          {/* Pestañas en pantallas pequeñas */}
-          <div
-            role="tablist"
-            aria-label="Módulos"
-            className="flex lg:hidden items-center gap-1.5 px-4 py-2 bg-sunken border-b border-white/10 overflow-x-auto shrink-0"
-          >
-            {MODULOS.map((m) => {
-              const Icono = m.icon;
-              const activo = modo === m.id;
-              return (
-                <button
-                  key={`tab-${m.id}`}
-                  type="button"
-                  role="tab"
-                  aria-selected={activo}
-                  onClick={() => setModo(m.id)}
-                  className={`px-3 py-2 rounded-lg text-sm whitespace-nowrap flex items-center gap-1.5 transition-colors cursor-pointer ${
-                    activo ? 'bg-accent text-white font-semibold' : 'text-white/70 hover:bg-white/5'
-                  }`}
-                >
-                  <Icono className="w-3.5 h-3.5" />
-                  <span>{m.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Main Scrollable Body */}
-          <main className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
-            
+          <RotateCcw className="w-4 h-4" />
+          <span className="hidden sm:inline">Restablecer</span>
+        </button>
+      }
+    >
+          <div className="space-y-6">
             {/* MODE 1: PRODUCCIÓN HP INDIGO (FRAME, IMPOSICIÓN, MERMA, ML) */}
             {modo === 'impresion_frame' && (
               <div className="space-y-6">
                 
                 {/* 1. Dimension & Quantity Inputs Grid */}
                 <div className="space-y-3">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 card-dark p-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
                     
                     {/* Ancho */}
                     <div className="space-y-1.5">
@@ -400,9 +211,9 @@ export default function App() {
                         max={anchoFrame}
                         value={anchoEmpaque ?? ''}
                         onChange={(e) => setAnchoEmpaque(parseFloat(e.target.value) || 0)}
-                        className="input-dark w-full px-3 py-2 text-base font-bold text-white"
+                        className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-slate-900"
                       />
-                      <span className="text-xs text-white/55 block">Eje del rollo (Máx: {anchoFrame} cm)</span>
+                      <span className="text-xs text-slate-500 block">Eje del rollo (Máx: {anchoFrame} cm)</span>
                     </div>
 
                     {/* Alto */}
@@ -415,9 +226,9 @@ export default function App() {
                         max={altoFrame}
                         value={altoEmpaque ?? ''}
                         onChange={(e) => setAltoEmpaque(parseFloat(e.target.value) || 0)}
-                        className="input-dark w-full px-3 py-2 text-base font-bold text-white"
+                        className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-slate-900"
                       />
-                      <span className="text-xs text-white/55 block">Desarrollo (Máx: {altoFrame} cm)</span>
+                      <span className="text-xs text-slate-500 block">Desarrollo (Máx: {altoFrame} cm)</span>
                     </div>
 
                     {/* Kilos Solicitados */}
@@ -429,9 +240,9 @@ export default function App() {
                         min="1"
                         value={kilosSolicitados ?? ''}
                         onChange={(e) => setKilosSolicitados(parseFloat(e.target.value) || 0)}
-                        className="input-dark w-full px-3 py-2 text-base font-bold text-accent-ink"
+                        className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-blue-700"
                       />
-                      <span className="text-xs text-white/55 block">Pedido base del cliente</span>
+                      <span className="text-xs text-slate-500 block">Pedido base del cliente</span>
                     </div>
 
                     {/* Tolerancia */}
@@ -440,41 +251,55 @@ export default function App() {
                       <select
                         value={tolerancia}
                         onChange={(e) => setTolerancia(parseFloat(e.target.value))}
-                        className="input-dark w-full px-3 py-2 text-base font-bold text-white cursor-pointer"
+                        className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-slate-900 cursor-pointer"
                       >
-                        <option value={0.00} className="bg-surface">0% (Exacto)</option>
-                        <option value={0.05} className="bg-surface">+5% Margen</option>
-                        <option value={0.10} className="bg-surface">+10% (Estándar)</option>
-                        <option value={0.15} className="bg-surface">+15% Margen</option>
-                        <option value={0.20} className="bg-surface">+20% Margen</option>
+                        <option value={0.00}>0% (Exacto)</option>
+                        <option value={0.05}>+5% Margen</option>
+                        <option value={0.10}>+10% (Estándar)</option>
+                        <option value={0.15}>+15% Margen</option>
+                        <option value={0.20}>+20% Margen</option>
                       </select>
-                      <span className="text-xs text-white/55 block">Margen de fabricación</span>
+                      <span className="text-xs text-slate-500 block">Margen de fabricación</span>
                     </div>
 
                   </div>
 
                   {/* Frame & Imposition Status Bar */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded bg-surface border border-white/10 text-xs">
+                  <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded bg-white border border-slate-200 text-xs">
                     <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-                      <div className="flex items-center gap-1.5 text-white/70">
-                        <span className="w-2 h-2 rounded-full bg-accent"></span>
-                        <span className="text-xs text-white/55">Frame Prensa:</span>
-                        <strong className="text-white font-bold">{anchoFrame.toFixed(1)} × {altoFrame.toFixed(1)} cm</strong>
+                      <div className="flex items-center gap-1.5 text-slate-600">
+                        <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                        <span className="text-xs text-slate-500">Frame Prensa:</span>
+                        <strong className="text-slate-900 font-bold">{anchoFrame.toFixed(1)} × {altoFrame.toFixed(1)} cm</strong>
                       </div>
 
-                      <span className="text-white/20 hidden sm:inline">|</span>
+                      <span className="text-slate-300 hidden sm:inline">|</span>
 
-                      <div className="text-white/70">
-                        <span className="text-xs text-white/55">Bobina:</span>{' '}
-                        <strong className="text-white font-bold">{anchoBobinaNatural.toFixed(1)} cm</strong>
+                      <div className="text-slate-600">
+                        <span className="text-xs text-slate-500">Bobina:</span>{' '}
+                        <strong className="text-slate-900 font-bold">{anchoBobinaNatural.toFixed(1)} cm</strong>
                       </div>
 
-                      <span className="text-white/20 hidden sm:inline">|</span>
+                      <span className="text-slate-300 hidden sm:inline">|</span>
 
-                      <div className="text-white/70">
-                        <span className="text-xs text-white/55">Acomodo:</span>{' '}
-                        <span className="text-accent-ink font-bold">{resultado.acomodo.piezasPorFrame} pzas/frame</span>{' '}
-                        <span className="text-white/55 text-xs">({resultado.acomodo.repEje} pistas × {resultado.acomodo.repDesarrollo} filas)</span>
+                      <div className="text-slate-600">
+                        <span className="text-xs text-slate-500">Acomodo:</span>{' '}
+                        <span className="text-blue-700 font-bold">{resultado.acomodo.piezasPorFrame} pzas/frame</span>{' '}
+                        <span className="text-slate-500 text-xs">({resultado.acomodo.repEje} pistas × {resultado.acomodo.repDesarrollo} filas)</span>
+                      </div>
+
+                      <span className="text-slate-300 hidden sm:inline">|</span>
+
+                      <div className="text-slate-600">
+                        <span className="text-xs text-slate-500">Frames a ocupar:</span>{' '}
+                        <strong className="text-slate-900 font-bold tabular-nums">{clicks.framesAOcupar.toLocaleString('es-MX')}</strong>
+                      </div>
+
+                      <span className="text-slate-300 hidden sm:inline">|</span>
+
+                      <div className="text-slate-600">
+                        <span className="text-xs text-slate-500">Clicks:</span>{' '}
+                        <strong className="text-blue-700 font-bold tabular-nums">{clicks.clicksTotales.toLocaleString('es-MX')}</strong>
                       </div>
                     </div>
 
@@ -483,7 +308,7 @@ export default function App() {
                       onClick={() => {
                         document.getElementById('frame-visualizer-container')?.scrollIntoView({ behavior: 'smooth' });
                       }}
-                      className="text-xs text-accent-ink hover:text-accent-ink flex items-center gap-1 cursor-pointer font-bold"
+                      className="text-xs text-blue-700 hover:text-blue-700 flex items-center gap-1 cursor-pointer font-bold"
                     >
                       <span>Cambiar dimensión del frame</span>
                     </button>
@@ -498,6 +323,17 @@ export default function App() {
 
                 {/* 4. Results Dashboard (Hero KPI Stats & Breakdown) */}
                 <ResultsDashboard params={params} resultado={resultado} />
+
+                {/* 4b. Frames a ocupar y clicks por tinta */}
+                <ClicksCalculator
+                  juego={juegoTintas}
+                  onJuegoChange={setJuegoTintas}
+                  llevaBlanco={llevaBlanco}
+                  onLlevaBlancoChange={setLlevaBlanco}
+                  clicks={clicks}
+                  piezasPorFrame={resultado.acomodo.piezasPorFrame}
+                  totalPiezas={resultado.produccion.totalPiezas}
+                />
 
                 {/* 5. Frame Visualizer (Imposition Canvas & Lateral Slit Waste) */}
                 <FrameVisualizer 
@@ -523,25 +359,25 @@ export default function App() {
               <div className="space-y-6">
                 
                 {/* Mode description header banner */}
-                <div className="card-dark p-5 border-l-2 border-l-[#ff4d00] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 border-l-2 border-l-blue-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="space-y-1">
-                    <h2 className="font-display text-base sm:text-lg font-bold text-white">
+                    <h2 className="font-display text-base sm:text-lg font-bold text-slate-900">
                       Calculadora de Bobina Individual
                     </h2>
-                    <p className="text-xs text-white/70 font-sans">
+                    <p className="text-xs text-slate-600 font-sans">
                       Cálculo técnico y directo de metros lineales a partir del ancho real de bobina ingresado, kilos exactos (+0%) y estructura del material (Monocapa o Multicapa).
                     </p>
                   </div>
-                  <div className="px-3 py-1.5 rounded bg-white/5 border border-white/10 font-mono text-xs text-accent-ink font-bold shrink-0">
+                  <div className="px-3 py-1.5 rounded bg-slate-50 border border-slate-200 font-mono text-xs text-blue-700 font-bold shrink-0">
                     Ancho directo · kilos exactos
                   </div>
                 </div>
 
                 {/* Section 1: Inputs for Single Roll */}
-                <div className="card-dark p-5 space-y-4">
-                  <div className="pb-3 border-b border-white/10">
-                    <span className="meta-label text-accent-ink">Dimensiones de la Bobina</span>
-                    <h3 className="font-display text-sm text-white font-bold">
+                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+                  <div className="pb-3 border-b border-slate-200">
+                    <span className="meta-label text-blue-700">Dimensiones de la Bobina</span>
+                    <h3 className="font-display text-sm text-slate-900 font-bold">
                       Parámetros de Entrada
                     </h3>
                   </div>
@@ -557,7 +393,7 @@ export default function App() {
                         max="200"
                         value={anchoBobinaIndividual ?? ''}
                         onChange={(e) => setAnchoBobinaIndividual(parseFloat(e.target.value) || 0)}
-                        className="input-dark w-full px-3 py-2 text-lg font-bold text-white"
+                        className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-lg font-bold text-slate-900"
                       />
                       {/* Quick Width Presets */}
                       <div className="flex flex-wrap gap-1.5 pt-1">
@@ -568,8 +404,8 @@ export default function App() {
                             onClick={() => setAnchoBobinaIndividual(w)}
                             className={`px-2 py-0.5 font-mono text-xs font-bold rounded border transition-colors ${
                               anchoBobinaIndividual === w 
-                                ? 'bg-accent text-white border-accent' 
-                                : 'bg-white/5 border-white/10 text-white/70 hover:text-white hover:bg-white/10'
+                                ? 'bg-blue-600 text-white border-blue-600' 
+                                : 'bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                             }`}
                           >
                             {w} cm
@@ -587,7 +423,7 @@ export default function App() {
                         min="1"
                         value={kilosBobinaIndividual ?? ''}
                         onChange={(e) => setKilosBobinaIndividual(parseFloat(e.target.value) || 0)}
-                        className="input-dark w-full px-3 py-2 text-lg font-bold text-accent-ink"
+                        className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-lg font-bold text-blue-700"
                       />
                       {/* Quick Kilos Presets */}
                       <div className="flex flex-wrap gap-1.5 pt-1">
@@ -598,8 +434,8 @@ export default function App() {
                             onClick={() => setKilosBobinaIndividual(k)}
                             className={`px-2 py-0.5 font-mono text-xs font-bold rounded border transition-colors ${
                               kilosBobinaIndividual === k 
-                                ? 'bg-accent text-white border-accent' 
-                                : 'bg-white/5 border-white/10 text-white/70 hover:text-white hover:bg-white/10'
+                                ? 'bg-blue-600 text-white border-blue-600' 
+                                : 'bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                             }`}
                           >
                             {k} kg
@@ -647,11 +483,7 @@ export default function App() {
               <LdpeMetersCalculator />
             )}
 
-          </main>
-        </div>
-
-      </div>
-
-    </div>
+          </div>
+    </AppShell>
   );
 }

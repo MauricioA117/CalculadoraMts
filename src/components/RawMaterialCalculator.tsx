@@ -113,18 +113,18 @@ RENDIMIENTOS:
     <div id="raw-material-calculator-view" className="space-y-6">
       
       {/* Header Banner */}
-      <div className="card-dark p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent-ink text-xs font-bold">
+            <span className="px-2 py-0.5 rounded-full bg-blue-600/10 border border-blue-600/20 text-blue-700 text-xs font-bold">
               Material natural puro
             </span>
           </div>
-          <h2 className="font-display text-base sm:text-lg font-bold text-white flex items-center gap-2">
-            <Scissors className="w-4 h-4 text-accent-ink" />
+          <h2 className="font-display text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+            <Scissors className="w-4 h-4 text-blue-700" />
             Calculadora de Materia Prima & Refile
           </h2>
-          <p className="text-xs text-white/70 font-sans max-w-2xl">
+          <p className="text-xs text-slate-600 font-sans max-w-2xl">
             Ingresa las dimensiones de tu bobina natural virgen y la medida requerida para calcular con precisión industrial cuántos metros son, cuántos kilos útiles quedan tras el refile y cuántos kilos se van a merma.
           </p>
         </div>
@@ -132,17 +132,17 @@ RENDIMIENTOS:
         <button
           type="button"
           onClick={handleCopyTicket}
-          className="px-3.5 py-2 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shrink-0"
+          className="px-3.5 py-2 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-900 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shrink-0"
           title="Copiar Ficha Técnica para Almacén / Cortadora"
         >
           {copied ? (
             <>
-              <Check className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-emerald-400">¡Ficha Copiada!</span>
+              <Check className="w-3.5 h-3.5 text-emerald-700" />
+              <span className="text-emerald-700">¡Ficha Copiada!</span>
             </>
           ) : (
             <>
-              <Copy className="w-3.5 h-3.5 text-accent-ink" />
+              <Copy className="w-3.5 h-3.5 text-blue-700" />
               <span>Copiar Orden de Corte</span>
             </>
           )}
@@ -151,8 +151,8 @@ RENDIMIENTOS:
 
       {/* Overwidth Alert if Requested > Mother Roll */}
       {resultado.esAlertaSobreancho && (
-        <div className="p-3.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs flex items-center gap-3">
-          <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+        <div className="p-3.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-700 text-xs flex items-center gap-3">
+          <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
           <div>
             <strong>Aviso de Sobredimensión:</strong> La medida solicitada ({anchoSolicitado} cm) supera el ancho de la bobina madre ({anchoBobinaMadre} cm). Se limitó el cálculo al ancho máximo disponible ({anchoBobinaMadre} cm) sin refile.
           </div>
@@ -160,22 +160,22 @@ RENDIMIENTOS:
       )}
 
       {/* Step 1: Substrate Selection (Virgin Natural Material) */}
-      <div className="card-dark p-5 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
           <div>
-            <span className="meta-label text-accent-ink">Sustrato Virgen Natural</span>
-            <h3 className="font-display text-sm text-white font-bold">
+            <span className="meta-label text-blue-700">Sustrato Virgen Natural</span>
+            <h3 className="font-display text-sm text-slate-900 font-bold">
               Material Puro (Sin Tinta ni Adhesivos)
             </h3>
           </div>
-          <div className="text-xs text-white/62 bg-white/5 px-2.5 py-1 rounded border border-white/10">
-            Gramaje Puro: <strong className="text-white font-bold">{resultado.gramaje.toFixed(2)} g/m²</strong>
+          <div className="text-xs text-slate-500 bg-slate-50 px-2.5 py-1 rounded border border-slate-200">
+            Gramaje Puro: <strong className="text-slate-900 font-bold">{resultado.gramaje.toFixed(2)} g/m²</strong>
           </div>
         </div>
 
         {/* Common Substrates Quick Pills */}
         <div className="space-y-1.5">
-          <span className="text-xs text-white/55 block">
+          <span className="text-xs text-slate-500 block">
             Material del catálogo:
           </span>
           <div className="flex flex-wrap gap-1.5">
@@ -188,13 +188,13 @@ RENDIMIENTOS:
                   onClick={() => handleSelectPreset(preset)}
                   className={`px-2.5 py-1.5 rounded text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                     isSelected
-                      ? 'bg-accent text-white shadow-sm'
-                      : 'bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   }`}
                   title={`${preset.categoria} - ${preset.descripcion}`}
                 >
                   <span>{preset.nombre}</span>
-                  <span className={`text-xs ${isSelected ? 'text-white/80' : 'text-white/55'}`}>
+                  <span className={`text-xs ${isSelected ? 'text-slate-700' : 'text-slate-500'}`}>
                     ({preset.calibres.join(' / ')} µm)
                   </span>
                 </button>
@@ -204,7 +204,7 @@ RENDIMIENTOS:
         </div>
 
         {/* Material y calibre del catálogo oficial (densidad de solo lectura) */}
-        <div className="space-y-2 pt-2 border-t border-white/5">
+        <div className="space-y-2 pt-2 border-t border-slate-100">
           <span className="meta-label">Material y calibre</span>
           <SelectorMaterial
             idBase="materia-prima"
@@ -218,24 +218,24 @@ RENDIMIENTOS:
             }}
           />
           <AvisoValidacion errores={validarEstructura([{ nombre: nombreMaterial, micras }]).errores} />
-          <span className="text-xs text-white/65 block">
+          <span className="text-xs text-slate-500 block">
             Gramaje = {densidad} × {micras} = {resultado.gramaje.toFixed(2)} g/m²
           </span>
         </div>
       </div>
 
       {/* Step 2: Input Parameters (Mother Roll & Requested Slit Size) */}
-      <div className="card-dark p-5 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
           <div>
-            <span className="meta-label text-accent-ink">Dimensiones de Entrada y Medida Solicitada</span>
-            <h3 className="font-display text-sm text-white font-bold">
+            <span className="meta-label text-blue-700">Dimensiones de Entrada y Medida Solicitada</span>
+            <h3 className="font-display text-sm text-slate-900 font-bold">
               Bobina Madre, Entrada y Cortes
             </h3>
           </div>
 
           {/* Toggle between input by Kilos vs Metros */}
-          <div className="flex items-center bg-black/40 border border-white/10 rounded p-0.5 text-xs">
+          <div className="flex items-center bg-slate-100 border border-slate-200 rounded p-0.5 text-xs">
             <button
               type="button"
               onClick={() => {
@@ -246,8 +246,8 @@ RENDIMIENTOS:
               }}
               className={`px-3 py-1 rounded transition-all cursor-pointer font-bold ${
                 modoEntrada === 'kilos'
-                  ? 'bg-accent text-white shadow-sm'
-                  : 'text-white/70 hover:text-white'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Entrada por KILOS (kg)
@@ -262,8 +262,8 @@ RENDIMIENTOS:
               }}
               className={`px-3 py-1 rounded transition-all cursor-pointer font-bold ${
                 modoEntrada === 'metros'
-                  ? 'bg-accent text-white shadow-sm'
-                  : 'text-white/70 hover:text-white'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Entrada por METROS (ML)
@@ -279,7 +279,7 @@ RENDIMIENTOS:
               <span className="meta-label">
                 {modoEntrada === 'kilos' ? 'Kilos Bobina Madre' : 'Metros Lineales Disponibles'}
               </span>
-              <span className="text-xs text-accent-ink font-bold">
+              <span className="text-xs text-blue-700 font-bold">
                 {modoEntrada === 'kilos' ? 'KG' : 'ML'}
               </span>
             </div>
@@ -289,7 +289,7 @@ RENDIMIENTOS:
               min="1"
               value={cantidadEntrada ?? ''}
               onChange={(e) => setCantidadEntrada(parseFloat(e.target.value) || 0)}
-              className="input-dark w-full px-3 py-2 text-base font-bold text-accent-ink font-mono"
+              className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-blue-700 font-mono"
             />
             {/* Quick value presets */}
             <div className="flex flex-wrap gap-1 pt-1">
@@ -300,8 +300,8 @@ RENDIMIENTOS:
                   onClick={() => setCantidadEntrada(val)}
                   className={`px-1.5 py-0.5 text-xs rounded border transition-colors ${
                     cantidadEntrada === val
-                      ? 'bg-accent text-white border-accent'
-                      : 'bg-white/5 border-white/10 text-white/70 hover:text-white'
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   {val}{modoEntrada === 'kilos' ? 'k' : 'm'}
@@ -320,7 +320,7 @@ RENDIMIENTOS:
               max="300"
               value={anchoBobinaMadre ?? ''}
               onChange={(e) => setAnchoBobinaMadre(parseFloat(e.target.value) || 0)}
-              className="input-dark w-full px-3 py-2 text-base font-bold text-white font-mono"
+              className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-slate-900 font-mono"
             />
             {/* Quick Mother Roll Widths */}
             <div className="flex flex-wrap gap-1 pt-1">
@@ -331,8 +331,8 @@ RENDIMIENTOS:
                   onClick={() => setAnchoBobinaMadre(w)}
                   className={`px-1.5 py-0.5 text-xs rounded border transition-colors ${
                     anchoBobinaMadre === w
-                      ? 'bg-accent text-white border-accent'
-                      : 'bg-white/5 border-white/10 text-white/70 hover:text-white'
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   {w}cm
@@ -345,7 +345,7 @@ RENDIMIENTOS:
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
               <span className="meta-label">Medida Solicitada (cm)</span>
-              <span className="text-xs text-emerald-400 font-bold">Útil total</span>
+              <span className="text-xs text-emerald-700 font-bold">Útil total</span>
             </div>
             <input
               type="number"
@@ -354,7 +354,7 @@ RENDIMIENTOS:
               max={anchoBobinaMadre}
               value={anchoSolicitado ?? ''}
               onChange={(e) => setAnchoSolicitado(parseFloat(e.target.value) || 0)}
-              className="input-dark w-full px-3 py-2 text-base font-bold text-emerald-400 font-mono"
+              className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-emerald-700 font-mono"
             />
             {/* Quick requested widths or common trims */}
             <div className="flex flex-wrap gap-1 pt-1">
@@ -370,8 +370,8 @@ RENDIMIENTOS:
                   onClick={() => setAnchoSolicitado(opt.val)}
                   className={`px-1.5 py-0.5 text-xs rounded border transition-colors ${
                     anchoSolicitado === opt.val
-                      ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-                      : 'bg-white/5 border-white/10 text-white/70 hover:text-white'
+                      ? 'bg-emerald-500/20 text-emerald-700 border-emerald-500/40'
+                      : 'bg-slate-50 border-slate-200 text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   {opt.label}
@@ -384,22 +384,22 @@ RENDIMIENTOS:
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
               <span className="meta-label">Cortes / Salidas</span>
-              <span className="text-xs text-white/62">Bobinas hijas</span>
+              <span className="text-xs text-slate-500">Bobinas hijas</span>
             </div>
             <select
               value={numeroSalidas}
               onChange={(e) => setNumeroSalidas(parseInt(e.target.value) || 1)}
-              className="input-dark w-full px-3 py-2 text-base font-bold text-white cursor-pointer font-mono"
+              className="bg-white border border-slate-300 rounded-lg font-mono min-h-10 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition w-full px-3 py-2 text-base font-bold text-slate-900 cursor-pointer font-mono"
             >
-              <option value={1} className="bg-surface">1 Salida ({resultado.anchoUtilTotalCm} cm)</option>
-              <option value={2} className="bg-surface">2 Salidas ({(resultado.anchoUtilTotalCm / 2).toFixed(1)} cm c/u)</option>
-              <option value={3} className="bg-surface">3 Salidas ({(resultado.anchoUtilTotalCm / 3).toFixed(1)} cm c/u)</option>
-              <option value={4} className="bg-surface">4 Salidas ({(resultado.anchoUtilTotalCm / 4).toFixed(1)} cm c/u)</option>
-              <option value={5} className="bg-surface">5 Salidas ({(resultado.anchoUtilTotalCm / 5).toFixed(1)} cm c/u)</option>
-              <option value={6} className="bg-surface">6 Salidas ({(resultado.anchoUtilTotalCm / 6).toFixed(1)} cm c/u)</option>
+              <option value={1}>1 Salida ({resultado.anchoUtilTotalCm} cm)</option>
+              <option value={2}>2 Salidas ({(resultado.anchoUtilTotalCm / 2).toFixed(1)} cm c/u)</option>
+              <option value={3}>3 Salidas ({(resultado.anchoUtilTotalCm / 3).toFixed(1)} cm c/u)</option>
+              <option value={4}>4 Salidas ({(resultado.anchoUtilTotalCm / 4).toFixed(1)} cm c/u)</option>
+              <option value={5}>5 Salidas ({(resultado.anchoUtilTotalCm / 5).toFixed(1)} cm c/u)</option>
+              <option value={6}>6 Salidas ({(resultado.anchoUtilTotalCm / 6).toFixed(1)} cm c/u)</option>
             </select>
-            <span className="text-xs text-white/55 block">
-              Refile Total: <strong className="text-accent-ink">{resultado.refileTotalCm} cm</strong> ({resultado.refilePorLadoCm} cm por orilla)
+            <span className="text-xs text-slate-500 block">
+              Refile Total: <strong className="text-blue-700">{resultado.refileTotalCm} cm</strong> ({resultado.refilePorLadoCm} cm por orilla)
             </span>
           </div>
 
@@ -410,69 +410,69 @@ RENDIMIENTOS:
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* KPI 1: Kilos Útiles Que Quedan */}
-        <div className="card-dark p-5 border-l-4 border-l-emerald-500 space-y-1 relative overflow-hidden bg-emerald-500/[0.07]">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 border-l-4 border-l-emerald-500 space-y-1 relative overflow-hidden bg-emerald-500/[0.07]">
           <div className="flex items-center justify-between">
-            <span className="meta-label text-emerald-400">¿Cuántos kg quedan?</span>
-            <span className="text-xs px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
+            <span className="meta-label text-emerald-700">¿Cuántos kg quedan?</span>
+            <span className="text-xs px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-700 font-bold">
               {resultado.porcentajeAprovechamiento.toFixed(1)}% ÚTIL
             </span>
           </div>
-          <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight flex items-baseline gap-1.5">
+          <div className="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight flex items-baseline gap-1.5">
             <span>{resultado.kilosUtilesTotal.toLocaleString()}</span>
-            <span className="text-lg font-mono text-emerald-400">KG</span>
+            <span className="text-lg font-mono text-emerald-700">KG</span>
           </div>
-          <p className="text-xs text-white/70">
+          <p className="text-xs text-slate-600">
             Kilos netos aprovechados tras cortar {resultado.refileTotalCm} cm de refile.
           </p>
         </div>
 
         {/* KPI 2: Kilos de Refile / Merma */}
-        <div className="card-dark p-5 space-y-1 relative overflow-hidden bg-accent/[0.07]">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-1 relative overflow-hidden bg-blue-600/[0.07]">
           <div className="flex items-center justify-between">
-            <span className="meta-label text-accent-ink">Refile / merma</span>
-            <span className="text-xs px-1.5 py-0.5 rounded bg-accent/20 text-accent-ink font-bold">
+            <span className="meta-label text-blue-700">Refile / merma</span>
+            <span className="text-xs px-1.5 py-0.5 rounded bg-blue-600/20 text-blue-700 font-bold">
               {resultado.porcentajeRefile.toFixed(1)}% MERMA
             </span>
           </div>
-          <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight flex items-baseline gap-1.5">
+          <div className="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight flex items-baseline gap-1.5">
             <span>{resultado.kilosRefileTotal.toLocaleString()}</span>
-            <span className="text-lg font-mono text-accent-ink">KG</span>
+            <span className="text-lg font-mono text-blue-700">KG</span>
           </div>
-          <p className="text-xs text-white/70">
+          <p className="text-xs text-slate-600">
             {resultado.refileTotalCm} cm de refile total ({resultado.refilePorLadoCm} cm por lado).
           </p>
         </div>
 
         {/* KPI 3: Metros Lineales Totales */}
-        <div className="card-dark p-5 border-l-4 border-l-sky-500 space-y-1 relative overflow-hidden bg-sky-500/[0.07]">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 border-l-4 border-l-sky-500 space-y-1 relative overflow-hidden bg-sky-500/[0.07]">
           <div className="flex items-center justify-between">
-            <span className="meta-label text-sky-400">¿Cuántos metros son?</span>
-            <span className="text-xs px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">
+            <span className="meta-label text-sky-700">¿Cuántos metros son?</span>
+            <span className="text-xs px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-700 font-bold">
               Continuo
             </span>
           </div>
-          <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight flex items-baseline gap-1.5">
+          <div className="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight flex items-baseline gap-1.5">
             <span>{resultado.metrosLineales.toLocaleString()}</span>
-            <span className="text-lg font-mono text-sky-400">ML</span>
+            <span className="text-lg font-mono text-sky-700">ML</span>
           </div>
-          <p className="text-xs text-white/70">
+          <p className="text-xs text-slate-600">
             Equivale a {(resultado.metrosLineales / 1000).toFixed(2)} kilómetros de longitud.
           </p>
         </div>
 
         {/* KPI 4: Rendimiento por Kilo */}
-        <div className="card-dark p-5 border-l-4 border-l-purple-500 space-y-1 relative overflow-hidden bg-purple-500/[0.07]">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 border-l-4 border-l-purple-500 space-y-1 relative overflow-hidden bg-purple-500/[0.07]">
           <div className="flex items-center justify-between">
-            <span className="meta-label text-purple-400">Rendimiento técnico</span>
-            <span className="text-xs px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">
+            <span className="meta-label text-purple-700">Rendimiento técnico</span>
+            <span className="text-xs px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-700 font-bold">
               FILM PURO
             </span>
           </div>
-          <div className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight flex items-baseline gap-1.5">
+          <div className="font-display text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight flex items-baseline gap-1.5">
             <span>{resultado.rendimientoMlKgUtil.toFixed(1)}</span>
-            <span className="text-lg font-mono text-purple-400">M/KG</span>
+            <span className="text-lg font-mono text-purple-700">M/KG</span>
           </div>
-          <p className="text-xs text-white/70">
+          <p className="text-xs text-slate-600">
             {resultado.rendimientoM2Kg.toFixed(1)} m²/kg • Rendimiento a ancho refilado.
           </p>
         </div>
@@ -480,17 +480,17 @@ RENDIMIENTOS:
       </div>
 
       {/* Visual Slitting & Refile Diagram (SVG) */}
-      <div className="card-dark p-5 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-white/10">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-200">
           <div className="flex items-center gap-2">
-            <Ruler className="w-4 h-4 text-accent-ink" />
-            <h3 className="font-display text-sm text-white font-bold">
+            <Ruler className="w-4 h-4 text-blue-700" />
+            <h3 className="font-display text-sm text-slate-900 font-bold">
               Visualizador de Refile y Esquema de Corte Transversal
             </h3>
           </div>
-          <div className="text-xs text-white/70 flex items-center gap-3">
+          <div className="text-xs text-slate-600 flex items-center gap-3">
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-sm bg-accent/30 border border-accent"></span>
+              <span className="w-2.5 h-2.5 rounded-sm bg-blue-600/30 border border-blue-600"></span>
               <span>Refile / Desperdicio</span>
             </span>
             <span className="flex items-center gap-1">
@@ -501,19 +501,19 @@ RENDIMIENTOS:
         </div>
 
         {/* Slitting SVG Canvas */}
-        <div className="bg-sunken border border-white/10 rounded-lg p-4 overflow-x-auto flex flex-col items-center">
+        <div className="bg-slate-100 border border-slate-200 rounded-lg p-4 overflow-x-auto flex flex-col items-center">
           
           {/* Top dimension label: Bobina Madre Total */}
-          <div className="w-full max-w-[500px] flex items-center justify-between font-mono text-xs text-white/62 mb-2 border-b border-dashed border-white/20 pb-1">
+          <div className="w-full max-w-[500px] flex items-center justify-between font-mono text-xs text-slate-500 mb-2 border-b border-dashed border-slate-300 pb-1">
             <span>Eje de la bobina madre</span>
-            <strong className="text-white font-bold">{resultado.anchoBobinaMadreCm.toFixed(1)} CM TOTAL ({resultado.kilosMadreTotal} kg)</strong>
+            <strong className="text-slate-900 font-bold">{resultado.anchoBobinaMadreCm.toFixed(1)} CM TOTAL ({resultado.kilosMadreTotal} kg)</strong>
           </div>
 
           <svg 
             width={svgTotalWidth} 
             height={svgHeight} 
             viewBox={`0 0 ${svgTotalWidth} ${svgHeight}`}
-            className="w-full max-w-[500px] border border-white/20 rounded shadow-inner"
+            className="w-full max-w-[500px] border border-slate-300 rounded shadow-inner"
           >
             <defs>
               {/* Striped pattern for waste / refile */}
@@ -640,16 +640,16 @@ RENDIMIENTOS:
           {/* Progress bar below visualization */}
           <div className="w-full max-w-[500px] mt-4 space-y-1 font-mono text-xs">
             <div className="flex justify-between text-xs">
-              <span className="text-emerald-400 font-bold">Aprovechado: {resultado.porcentajeAprovechamiento.toFixed(1)}% ({resultado.kilosUtilesTotal} kg)</span>
-              <span className="text-accent-ink font-bold">Merma Refile: {resultado.porcentajeRefile.toFixed(1)}% ({resultado.kilosRefileTotal} kg)</span>
+              <span className="text-emerald-700 font-bold">Aprovechado: {resultado.porcentajeAprovechamiento.toFixed(1)}% ({resultado.kilosUtilesTotal} kg)</span>
+              <span className="text-blue-700 font-bold">Merma Refile: {resultado.porcentajeRefile.toFixed(1)}% ({resultado.kilosRefileTotal} kg)</span>
             </div>
-            <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden flex border border-white/10">
+            <div className="w-full h-2.5 bg-slate-50 rounded-full overflow-hidden flex border border-slate-200">
               <div 
                 className="h-full bg-emerald-500 transition-all duration-300"
                 style={{ width: `${resultado.porcentajeAprovechamiento}%` }}
               />
               <div 
-                className="h-full bg-accent transition-all duration-300"
+                className="h-full bg-blue-600 transition-all duration-300"
                 style={{ width: `${resultado.porcentajeRefile}%` }}
               />
             </div>
@@ -661,39 +661,39 @@ RENDIMIENTOS:
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         
         {/* Card 1: Balance de Masa & Geometría */}
-        <div className="card-dark p-5 space-y-3 font-mono text-xs">
-          <div className="flex items-center gap-2 text-white/80 font-bold pb-2 border-b border-white/10 ">
-            <Disc className="w-4 h-4 text-accent-ink" />
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3 font-mono text-xs">
+          <div className="flex items-center gap-2 text-slate-700 font-bold pb-2 border-b border-slate-200 ">
+            <Disc className="w-4 h-4 text-blue-700" />
             <span>Balance de Masa y Dimensiones</span>
           </div>
 
-          <div className="space-y-2 text-white/70">
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Material Virgen:</span>
-              <span className="font-bold text-white">{resultado.nombreMaterial}</span>
+          <div className="space-y-2 text-slate-600">
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Material Virgen:</span>
+              <span className="font-bold text-slate-900">{resultado.nombreMaterial}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Densidad & Calibre:</span>
-              <span className="text-white">{resultado.densidad} g/cm³ • {resultado.micras} micras</span>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Densidad & Calibre:</span>
+              <span className="text-slate-900">{resultado.densidad} g/cm³ • {resultado.micras} micras</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Gramaje Resultante:</span>
-              <strong className="text-white font-bold">{resultado.gramaje.toFixed(2)} g/m²</strong>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Gramaje Resultante:</span>
+              <strong className="text-slate-900 font-bold">{resultado.gramaje.toFixed(2)} g/m²</strong>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Ancho Bobina Madre:</span>
-              <span className="text-white font-bold">{resultado.anchoBobinaMadreCm.toFixed(1)} cm</span>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Ancho Bobina Madre:</span>
+              <span className="text-slate-900 font-bold">{resultado.anchoBobinaMadreCm.toFixed(1)} cm</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Ancho Útil Solicitado:</span>
-              <strong className="text-emerald-400 font-bold">{resultado.anchoUtilTotalCm.toFixed(1)} cm</strong>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Ancho Útil Solicitado:</span>
+              <strong className="text-emerald-700 font-bold">{resultado.anchoUtilTotalCm.toFixed(1)} cm</strong>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Refile Total a Descartar:</span>
-              <strong className="text-accent-ink font-bold">{resultado.refileTotalCm.toFixed(1)} cm ({resultado.refilePorLadoCm} cm c/lado)</strong>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Refile Total a Descartar:</span>
+              <strong className="text-blue-700 font-bold">{resultado.refileTotalCm.toFixed(1)} cm ({resultado.refilePorLadoCm} cm c/lado)</strong>
             </div>
             {resultado.numeroSalidas > 1 && (
-              <div className="flex justify-between py-1 border-b border-white/5 text-emerald-300">
+              <div className="flex justify-between py-1 border-b border-slate-100 text-emerald-700">
                 <span>Bobinas Hijas Cortadas:</span>
                 <span className="font-bold">{resultado.numeroSalidas} bobinas de {resultado.anchoPorSalidaCm.toFixed(1)} cm</span>
               </div>
@@ -702,40 +702,40 @@ RENDIMIENTOS:
         </div>
 
         {/* Card 2: Metros, Superficie y Rendimientos */}
-        <div className="card-dark p-5 space-y-3 font-mono text-xs">
-          <div className="flex items-center gap-2 text-white/80 font-bold pb-2 border-b border-white/10 ">
-            <BarChart3 className="w-4 h-4 text-accent-ink" />
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3 font-mono text-xs">
+          <div className="flex items-center gap-2 text-slate-700 font-bold pb-2 border-b border-slate-200 ">
+            <BarChart3 className="w-4 h-4 text-blue-700" />
             <span>Rendimiento Industrial & Áreas</span>
           </div>
 
-          <div className="space-y-2 text-white/70">
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Metros Lineales Continuos:</span>
-              <strong className="text-sky-400 font-bold">{resultado.metrosLineales.toLocaleString()} ML</strong>
+          <div className="space-y-2 text-slate-600">
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Metros Lineales Continuos:</span>
+              <strong className="text-sky-700 font-bold">{resultado.metrosLineales.toLocaleString()} ML</strong>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Kilos Brutos Entrada:</span>
-              <span className="text-white">{resultado.kilosMadreTotal.toLocaleString()} kg</span>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Kilos Brutos Entrada:</span>
+              <span className="text-slate-900">{resultado.kilosMadreTotal.toLocaleString()} kg</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Kilos Útiles Resultantes:</span>
-              <strong className="text-emerald-400 font-bold">{resultado.kilosUtilesTotal.toLocaleString()} kg</strong>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Kilos Útiles Resultantes:</span>
+              <strong className="text-emerald-700 font-bold">{resultado.kilosUtilesTotal.toLocaleString()} kg</strong>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Kilos de Refile (Merma):</span>
-              <strong className="text-accent-ink font-bold">{resultado.kilosRefileTotal.toLocaleString()} kg</strong>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Kilos de Refile (Merma):</span>
+              <strong className="text-blue-700 font-bold">{resultado.kilosRefileTotal.toLocaleString()} kg</strong>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Área Útil Total:</span>
-              <span className="text-white">{resultado.areaUtilM2.toLocaleString()} m²</span>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Área Útil Total:</span>
+              <span className="text-slate-900">{resultado.areaUtilM2.toLocaleString()} m²</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Área Desperdiciada en Refile:</span>
-              <span className="text-accent-ink">{resultado.areaRefileM2.toLocaleString()} m²</span>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Área Desperdiciada en Refile:</span>
+              <span className="text-blue-700">{resultado.areaRefileM2.toLocaleString()} m²</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-white/5">
-              <span className="text-white/55">Rendimiento por Kilo:</span>
-              <span className="text-purple-300 font-bold">{resultado.rendimientoM2Kg.toFixed(1)} m²/kg</span>
+            <div className="flex justify-between py-1 border-b border-slate-100">
+              <span className="text-slate-500">Rendimiento por Kilo:</span>
+              <span className="text-purple-700 font-bold">{resultado.rendimientoM2Kg.toFixed(1)} m²/kg</span>
             </div>
           </div>
         </div>
@@ -743,25 +743,25 @@ RENDIMIENTOS:
       </div>
 
       {/* Explainer Box: Exact Mathematical Formulas for Virgin Film */}
-      <div className="p-4 rounded bg-white/[0.02] border border-white/10 font-mono text-xs space-y-2">
-        <div className="flex items-center gap-1.5 text-white/80 font-bold text-xs">
-          <Info className="w-3.5 h-3.5 text-accent-ink" />
+      <div className="p-4 rounded bg-slate-50 border border-slate-200 font-mono text-xs space-y-2">
+        <div className="flex items-center gap-1.5 text-slate-700 font-bold text-xs">
+          <Info className="w-3.5 h-3.5 text-blue-700" />
           <span>Fórmulas de Ingeniería Aplicadas (Puro Material Natural)</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-white/70 text-xs pt-1">
-          <div className="bg-black/30 p-2.5 rounded border border-white/5 space-y-1">
-            <span className="text-white font-bold block">1. Conversión de Kilos a Metros Lineales:</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-600 text-xs pt-1">
+          <div className="bg-slate-100 p-2.5 rounded border border-slate-100 space-y-1">
+            <span className="text-slate-900 font-bold block">1. Conversión de Kilos a Metros Lineales:</span>
             <code>ML = (Kg_Madre × 1000) / [ Gramaje (g/m²) × (Ancho_Madre_cm / 100) ]</code>
-            <p className="text-xs text-white/55 pt-0.5">
+            <p className="text-xs text-slate-500 pt-0.5">
               = ({resultado.kilosMadreTotal} × 1000) / [ {resultado.gramaje.toFixed(2)} × {(resultado.anchoBobinaMadreCm / 100).toFixed(3)} ] = <strong>{resultado.metrosLineales.toLocaleString()} ML</strong>
             </p>
           </div>
 
-          <div className="bg-black/30 p-2.5 rounded border border-white/5 space-y-1">
-            <span className="text-white font-bold block">2. Kilos que Quedan vs Kilos de Refile:</span>
+          <div className="bg-slate-100 p-2.5 rounded border border-slate-100 space-y-1">
+            <span className="text-slate-900 font-bold block">2. Kilos que Quedan vs Kilos de Refile:</span>
             <code>Kg_Útiles = (ML × Gramaje × (Ancho_Útil_cm / 100)) / 1000</code>
-            <p className="text-xs text-white/55 pt-0.5">
-              Kg_Refile = Kg_Madre - Kg_Útiles = {resultado.kilosMadreTotal} - {resultado.kilosUtilesTotal} = <strong className="text-accent-ink">{resultado.kilosRefileTotal} kg</strong>
+            <p className="text-xs text-slate-500 pt-0.5">
+              Kg_Refile = Kg_Madre - Kg_Útiles = {resultado.kilosMadreTotal} - {resultado.kilosUtilesTotal} = <strong className="text-blue-700">{resultado.kilosRefileTotal} kg</strong>
             </p>
           </div>
         </div>

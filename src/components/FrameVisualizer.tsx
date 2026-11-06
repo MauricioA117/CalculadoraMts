@@ -72,18 +72,18 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
   const refileW = refilePorLado * scaleX;
 
   return (
-    <div id="frame-visualizer-container" className="card-dark p-5 space-y-6">
+    <div id="frame-visualizer-container" className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-6">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-white/10">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200">
         <div>
-          <span className="meta-label text-accent-ink">
+          <span className="meta-label text-blue-700">
             Imposición y Merma de Bobina
           </span>
-          <h3 className="font-display text-sm text-white font-bold flex items-center gap-2">
+          <h3 className="font-display text-sm text-slate-900 font-bold flex items-center gap-2">
             Frame de Impresión ({anchoFrameMax.toFixed(1)} × {altoFrameMax.toFixed(1)} cm)
           </h3>
-          <p className="text-xs text-white/62 mt-0.5 font-mono">
-            Bobina Base: <strong className="text-white">{bobinaNatural} cm</strong> | Ancho Impreso: <strong className="text-accent-ink">{medidaBobinaImpresa} cm</strong>
+          <p className="text-xs text-slate-500 mt-0.5 font-mono">
+            Bobina Base: <strong className="text-slate-900">{bobinaNatural} cm</strong> | Ancho Impreso: <strong className="text-blue-700">{medidaBobinaImpresa} cm</strong>
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
                 onAnchoFrameChange?.(FRAME_MAX_ANCHO);
                 onAltoFrameChange?.(FRAME_MAX_ALTO);
               }}
-              className="p-1.5 rounded bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 text-xs flex items-center gap-1 cursor-pointer"
+              className="p-1.5 rounded bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-xs flex items-center gap-1 cursor-pointer"
               title={`Restablecer Frame a HP Indigo 20000/25K (${FRAME_MAX_ANCHO} × ${FRAME_MAX_ALTO} cm)`}
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -107,7 +107,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
           <button
             type="button"
             onClick={() => setShowGuides(!showGuides)}
-            className="p-1.5 rounded bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 text-xs flex items-center gap-1 cursor-pointer"
+            className="p-1.5 rounded bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-xs flex items-center gap-1 cursor-pointer"
             title="Alternar guías de coordenadas"
           >
             <Eye className="w-3.5 h-3.5" />
@@ -117,11 +117,11 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
       </div>
 
       {/* Frame Dimensions Control Bar */}
-      <div className="bg-black/30 border border-white/10 rounded-lg p-3 space-y-3">
+      <div className="bg-slate-100 border border-slate-200 rounded-lg p-3 space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <Sliders className="w-3.5 h-3.5 text-accent-ink" />
-            <span className="text-xs font-bold text-white ">
+            <Sliders className="w-3.5 h-3.5 text-blue-700" />
+            <span className="text-xs font-bold text-slate-900 ">
               Ajuste de Dimensiones del Frame
             </span>
           </div>
@@ -129,7 +129,7 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
           {/* Quick Presets for Frame */}
           {(onAnchoFrameChange && onAltoFrameChange) && (
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-xs text-white/55 mr-1">Presets Prensa:</span>
+              <span className="text-xs text-slate-500 mr-1">Presets Prensa:</span>
               {PRESETS_FRAME.map(preset => {
                 const isSelected = Math.abs(anchoFrameMax - preset.ancho) < 0.05 && Math.abs(altoFrameMax - preset.alto) < 0.05;
                 return (
@@ -142,8 +142,8 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
                     }}
                     className={`px-2 py-1 rounded text-xs font-bold transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-accent text-white shadow-sm'
-                        : 'bg-white/5 text-white/70 hover:text-white hover:bg-white/10 border border-white/10'
+                        ? 'bg-blue-600 text-white shadow-sm'
+                        : 'bg-slate-50 text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200'
                     }`}
                     title={preset.descripcion}
                   >
@@ -156,12 +156,12 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
         </div>
 
         {/* Inputs Grid: Ancho Frame, Alto Frame, Bobina Base */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-white/5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-100">
           {/* Ancho Útil del Frame */}
-          <div className="flex items-center justify-between bg-white/[0.03] border border-white/10 rounded px-3 py-2">
+          <div className="flex items-center justify-between bg-slate-50 border border-slate-200 rounded px-3 py-2">
             <div>
-              <span className="text-xs font-bold text-white block">Ancho Útil Frame</span>
-              <span className="text-xs text-white/55">Eje de bobina</span>
+              <span className="text-xs font-bold text-slate-900 block">Ancho Útil Frame</span>
+              <span className="text-xs text-slate-500">Eje de bobina</span>
             </div>
             <div className="flex items-center gap-1.5">
               <input
@@ -175,17 +175,17 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
                   const val = parseFloat(e.target.value);
                   onAnchoFrameChange?.(isNaN(val) ? 1 : Math.max(1, val));
                 }}
-                className="w-16 bg-white/10 border border-white/20 rounded px-1.5 py-1 text-center font-mono font-bold text-white text-xs focus:outline-none focus:border-accent"
+                className="w-16 bg-slate-100 border border-slate-300 rounded px-1.5 py-1 text-center font-mono font-bold text-slate-900 text-xs focus:outline-none focus:border-blue-600"
               />
-              <span className="text-xs text-accent-ink font-mono font-bold">cm</span>
+              <span className="text-xs text-blue-700 font-mono font-bold">cm</span>
             </div>
           </div>
 
           {/* Alto / Desarrollo del Frame */}
-          <div className="flex items-center justify-between bg-white/[0.03] border border-white/10 rounded px-3 py-2">
+          <div className="flex items-center justify-between bg-slate-50 border border-slate-200 rounded px-3 py-2">
             <div>
-              <span className="text-xs font-bold text-white block">Desarrollo / Alto</span>
-              <span className="text-xs text-white/55">Avance de cilindro</span>
+              <span className="text-xs font-bold text-slate-900 block">Desarrollo / Alto</span>
+              <span className="text-xs text-slate-500">Avance de cilindro</span>
             </div>
             <div className="flex items-center gap-1.5">
               <input
@@ -199,17 +199,17 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
                   const val = parseFloat(e.target.value);
                   onAltoFrameChange?.(isNaN(val) ? 1 : Math.max(1, val));
                 }}
-                className="w-16 bg-white/10 border border-white/20 rounded px-1.5 py-1 text-center font-mono font-bold text-white text-xs focus:outline-none focus:border-accent"
+                className="w-16 bg-slate-100 border border-slate-300 rounded px-1.5 py-1 text-center font-mono font-bold text-slate-900 text-xs focus:outline-none focus:border-blue-600"
               />
-              <span className="text-xs text-accent-ink font-mono font-bold">cm</span>
+              <span className="text-xs text-blue-700 font-mono font-bold">cm</span>
             </div>
           </div>
 
           {/* Bobina Base Natural */}
-          <div className="flex items-center justify-between bg-white/[0.03] border border-white/10 rounded px-3 py-2">
+          <div className="flex items-center justify-between bg-slate-50 border border-slate-200 rounded px-3 py-2">
             <div>
-              <span className="text-xs font-bold text-white block">Bobina Base Entrada</span>
-              <span className="text-xs text-white/55">Rollo virgen</span>
+              <span className="text-xs font-bold text-slate-900 block">Bobina Base Entrada</span>
+              <span className="text-xs text-slate-500">Rollo virgen</span>
             </div>
             <div className="flex items-center gap-1.5">
               <input
@@ -220,9 +220,9 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
                 max={250}
                 value={bobinaNatural ?? ''}
                 onChange={(e) => onAnchoBobinaNaturalChange?.(parseFloat(e.target.value) || ANCHO_BOBINA_NATURAL_DEFAULT)}
-                className="w-16 bg-white/10 border border-white/20 rounded px-1.5 py-1 text-center font-mono font-bold text-white text-xs focus:outline-none focus:border-accent"
+                className="w-16 bg-slate-100 border border-slate-300 rounded px-1.5 py-1 text-center font-mono font-bold text-slate-900 text-xs focus:outline-none focus:border-blue-600"
               />
-              <span className="text-xs text-white/62 font-bold">cm</span>
+              <span className="text-xs text-slate-500 font-bold">cm</span>
             </div>
           </div>
         </div>
@@ -232,8 +232,8 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* Left SVG Interactive Canvas (Dark technical frame) */}
-        <div className="lg:col-span-6 flex flex-col items-center justify-center p-4 rounded bg-bg border border-white/10 relative">
-          <div className="w-full flex items-center justify-between text-xs text-white/55 mb-2">
+        <div className="lg:col-span-6 flex flex-col items-center justify-center p-4 rounded bg-slate-50 border border-slate-200 relative">
+          <div className="w-full flex items-center justify-between text-xs text-slate-500 mb-2">
             <span>Bobina de entrada: {bobinaNatural} cm</span>
             <span>Frame Indigo: {altoFrameMax.toFixed(1)} cm</span>
           </div>
@@ -362,12 +362,12 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
             </svg>
           </div>
 
-          <div className="w-full flex items-center justify-between text-xs text-white/70 pt-2 border-t border-white/10">
+          <div className="w-full flex items-center justify-between text-xs text-slate-600 pt-2 border-t border-slate-200">
             <span className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-sm bg-accent"></span>
+              <span className="w-2.5 h-2.5 rounded-sm bg-blue-600"></span>
               <span>{repEje} Pistas × {repDesarrollo} Filas</span>
             </span>
-            <span className="flex items-center gap-1.5 text-red-400">
+            <span className="flex items-center gap-1.5 text-red-700">
               <span className="w-2.5 h-2.5 rounded-sm bg-red-500/40 border border-red-500"></span>
               <span>Refile: {refilePorLado} cm × 2 lados ({merma.sobranteAnchoPct}% merma)</span>
             </span>
@@ -378,73 +378,73 @@ export const FrameVisualizer: React.FC<FrameVisualizerProps> = ({
         <div className="lg:col-span-6 space-y-3 font-mono">
           
           {/* Imposition Summary Card */}
-          <div className="card-dark p-4 space-y-3">
-            <div className="flex items-center justify-between pb-2 border-b border-white/10">
-              <span className="meta-label text-accent-ink">Acomodo en Prensa</span>
-              <span className="font-display text-sm font-bold text-white">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 space-y-3">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+              <span className="meta-label text-blue-700">Acomodo en Prensa</span>
+              <span className="font-display text-sm font-bold text-slate-900">
                 {piezasPorFrame} Piezas / Frame
               </span>
             </div>
 
             <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="p-2.5 rounded bg-white/[0.03] border border-white/5">
-                <span className="text-xs text-white/55 block">Repeticiones en Eje</span>
-                <span className="font-display text-lg font-bold text-white">{repEje} pistas</span>
-                <span className="text-xs text-white/55 block">({medidaBobinaImpresa} cm ancho, sep. {separacionCarrilCm} cm)</span>
+              <div className="p-2.5 rounded bg-slate-50 border border-slate-100">
+                <span className="text-xs text-slate-500 block">Repeticiones en Eje</span>
+                <span className="font-display text-lg font-bold text-slate-900">{repEje} pistas</span>
+                <span className="text-xs text-slate-500 block">({medidaBobinaImpresa} cm ancho, sep. {separacionCarrilCm} cm)</span>
               </div>
 
-              <div className="p-2.5 rounded bg-white/[0.03] border border-white/5">
-                <span className="text-xs text-white/55 block">Repeticiones Desarrollo</span>
-                <span className="font-display text-lg font-bold text-white">{repDesarrollo} filas</span>
-                <span className="text-xs text-white/55 block">({altoAprovechadoCm.toFixed(1)} cm alto)</span>
+              <div className="p-2.5 rounded bg-slate-50 border border-slate-100">
+                <span className="text-xs text-slate-500 block">Repeticiones Desarrollo</span>
+                <span className="font-display text-lg font-bold text-slate-900">{repDesarrollo} filas</span>
+                <span className="text-xs text-slate-500 block">({altoAprovechadoCm.toFixed(1)} cm alto)</span>
               </div>
             </div>
           </div>
 
           {/* Efficiency Meters */}
-          <div className="card-dark p-4 space-y-3">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 space-y-3">
             <span className="meta-label">Aprovechamiento Técnico del Ancho</span>
             
             <div className="space-y-2">
               <div>
-                <div className="flex justify-between text-xs text-white/80 mb-1">
+                <div className="flex justify-between text-xs text-slate-700 mb-1">
                   <span>Ancho Útil ({medidaBobinaImpresa} cm / {bobinaNatural} cm):</span>
-                  <strong className="text-accent-ink">{anchoAprovechadoPct.toFixed(1)}%</strong>
+                  <strong className="text-blue-700">{anchoAprovechadoPct.toFixed(1)}%</strong>
                 </div>
-                <div className="w-full bg-white/10 h-2 rounded overflow-hidden">
-                  <div className="bg-accent h-full" style={{ width: `${Math.min(100, anchoAprovechadoPct)}%` }}></div>
+                <div className="w-full bg-slate-100 h-2 rounded overflow-hidden">
+                  <div className="bg-blue-600 h-full" style={{ width: `${Math.min(100, anchoAprovechadoPct)}%` }}></div>
                 </div>
               </div>
 
               <div>
-                <div className="flex justify-between text-xs text-white/80 mb-1">
+                <div className="flex justify-between text-xs text-slate-700 mb-1">
                   <span>Desarrollo Útil ({altoAprovechadoCm.toFixed(1)} cm / {altoFrameMax} cm):</span>
-                  <strong className="text-white">{altoAprovechadoPct.toFixed(1)}%</strong>
+                  <strong className="text-slate-900">{altoAprovechadoPct.toFixed(1)}%</strong>
                 </div>
-                <div className="w-full bg-white/10 h-2 rounded overflow-hidden">
-                  <div className="bg-white/60 h-full" style={{ width: `${Math.min(100, altoAprovechadoPct)}%` }}></div>
+                <div className="w-full bg-slate-100 h-2 rounded overflow-hidden">
+                  <div className="bg-slate-400 h-full" style={{ width: `${Math.min(100, altoAprovechadoPct)}%` }}></div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Waste Breakdown Card */}
-          <div className="card-dark p-4 border-l-2 border-l-red-500 bg-red-950/10 space-y-2">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 border-l-2 border-l-red-500 bg-red-50 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="meta-label text-red-400">Merma de Refile Lateral</span>
-              <span className="font-mono text-xs font-bold text-red-400">
+              <span className="meta-label text-red-700">Merma de Refile Lateral</span>
+              <span className="font-mono text-xs font-bold text-red-700">
                 {merma.sobranteAnchoPct}% Desperdicio
               </span>
             </div>
 
             <div className="grid grid-cols-2 gap-2 text-xs pt-1">
               <div>
-                <span className="text-xs text-red-300/60 block">Área Desperdiciada</span>
-                <span className="font-display text-base font-bold text-red-300">{merma.areaDesperdicioM2.toLocaleString()} m²</span>
+                <span className="text-xs text-red-700/60 block">Área Desperdiciada</span>
+                <span className="font-display text-base font-bold text-red-700">{merma.areaDesperdicioM2.toLocaleString()} m²</span>
               </div>
               <div>
-                <span className="text-xs text-red-300/60 block">Kilos de Merma</span>
-                <span className="font-display text-base font-bold text-red-400">{merma.kgDesperdicioEstructura.toFixed(2)} kg</span>
+                <span className="text-xs text-red-700/60 block">Kilos de Merma</span>
+                <span className="font-display text-base font-bold text-red-700">{merma.kgDesperdicioEstructura.toFixed(2)} kg</span>
               </div>
             </div>
           </div>

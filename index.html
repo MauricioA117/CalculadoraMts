@@ -5,23 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculadora de MTs | Ingeniería de Empaque y Refile</title>
     <meta name="description" content="Calculadora de ingeniería de producción, metros a laminar en LDPE (CE-21, MCE-25) con control de stock y faltantes, lotes de bobinas con merma (76 cm), bobina individual e imposición en frame HP Indigo." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#27656C" />
     <script>
-      // Aplica el tema guardado (o el del sistema) antes de pintar para evitar parpadeo.
-      (function () {
-        try {
-          var saved = localStorage.getItem('mts-theme');
-          var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-          document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-        } catch (e) {
-          document.documentElement.setAttribute('data-theme', 'light');
+      // Tema guardado (claro / oscuro / vidrio): se aplica antes de pintar para que no parpadee
+      try {
+        var tema = localStorage.getItem('tema_app');
+        if (tema === 'vidrio') {
+          var tono = localStorage.getItem('tema_vidrio') === 'claro' ? 'claro' : 'oscuro';
+          if (tono === 'oscuro') document.documentElement.setAttribute('data-theme', 'dark');
+          document.documentElement.setAttribute('data-vidrio', tono);
+        } else if (tema === 'dark' || (!tema && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.setAttribute('data-theme', 'dark');
         }
-      })();
+      } catch (e) {}
     </script>
   </head>
-  <body class="bg-bg text-white antialiased selection:bg-accent selection:text-white">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
