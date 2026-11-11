@@ -46,7 +46,7 @@ export const ResultsDashboard: React.FC<ResultsDashboardProps> = ({ params, resu
             ? '[SUSTRATO IMPRESIÓN - RIGE ML]' 
             : '[SUSTRATO LAMINACIÓN]';
       const mermaCapa = merma?.desgloseMermaPorCapa.find(m => m.idMaterial === d.idMaterial);
-      return `  • ${d.nombre} ${rol} -> ${d.kilosRequeridos} kg (${(d.porcentaje * 100).toFixed(2)}%) | Gr: ${d.gramajeTotalCapa} g/m² | Merma: ${mermaCapa?.kgMerma.toFixed(2) || '0.00'} kg`;
+      return `  • ${d.nombre} ${rol} -> Neto: ${d.kilosRequeridos} kg | Bruto: ${(d.kilosBrutos ?? 0).toFixed(2)} kg (${(d.porcentaje * 100).toFixed(2)}%) | Gr: ${d.gramajeTotalCapa} g/m² | Merma: ${mermaCapa?.kgMerma.toFixed(2) || '0.00'} kg`;
     }).join('\n');
 
     const ticket = `=========================================
@@ -266,7 +266,8 @@ Generado: ${new Date().toLocaleDateString('es-ES')} ${new Date().toLocaleTimeStr
                 <th className="py-2.5 px-4 font-bold">Tipo</th>
                 <th className="py-2.5 px-4 font-bold text-right">Gramaje Total</th>
                 <th className="py-2.5 px-4 font-bold text-right">% Estructura</th>
-                <th className="py-2.5 px-4 font-bold text-right">Kilos Requeridos</th>
+                <th className="py-2.5 px-4 font-bold text-right">Kg Netos</th>
+                <th className="py-2.5 px-4 font-bold text-right">Kg Brutos</th>
                 <th className="py-2.5 px-4 font-bold text-right">Metros Lineales</th>
               </tr>
             </thead>
@@ -326,6 +327,10 @@ Generado: ${new Date().toLocaleDateString('es-ES')} ${new Date().toLocaleTimeStr
                       {item.kilosRequeridos.toFixed(2)} <span className="text-xs text-slate-500 font-normal">kg</span>
                     </td>
 
+                    <td className="py-3 px-4 text-right font-mono font-bold text-blue-700">
+                      {(item.kilosBrutos ?? 0).toFixed(2)} <span className="text-xs text-slate-500 font-normal">kg</span>
+                    </td>
+
                     <td className="py-3 px-4 text-right font-mono font-bold text-slate-900">
                       {isImpresion ? (
                         <span className="text-blue-700 font-bold">{layerML.toLocaleString()} ML</span>
@@ -350,6 +355,9 @@ Generado: ${new Date().toLocaleDateString('es-ES')} ${new Date().toLocaleTimeStr
                 </td>
                 <td className="py-3 px-4 text-right text-slate-900">
                   {totalKilos.toFixed(2)} kg
+                </td>
+                <td className="py-3 px-4 text-right text-blue-700">
+                  {merma.kgTotalesBobina76.toFixed(2)} kg
                 </td>
                 <td className="py-3 px-4 text-right text-blue-700">
                   {metrosLineales.toLocaleString()} ML

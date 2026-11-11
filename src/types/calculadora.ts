@@ -30,7 +30,8 @@ export interface DetalleCapa {
   gramajeSustrato: number;
   gramajeTotalCapa: number;
   porcentaje: number;
-  kilosRequeridos: number;
+  kilosRequeridos: number; // kg netos (producto terminado)
+  kilosBrutos?: number;    // kg netos + merma de refile de esta capa
   metrosLineales: number;
   esTinta?: boolean;
   esAdhesivo?: boolean;
@@ -428,7 +429,12 @@ export function calcularIngenieriaEmpaque(
   const kgTotalesBobina76 = Number((totalKilos + kgDesperdicioEstructura).toFixed(2));
 
   // Generar el desglose de merma en el mismo orden exacto del desgloseMateriales
+  // Kg brutos por material: parte proporcional de los kg brutos de bobina (neto + merma)
+  const kgBrutosSinRedondeo = totalKilos + (areaDesperdicioM2 * gramajeEstructuraTotal) / 1000;
   desgloseMateriales.forEach(item => {
+    item.kilosBrutos = gramajeEstructuraTotal > 0
+      ? Number(((kgBrutosSinRedondeo * item.gramajeTotalCapa) / gramajeEstructuraTotal).toFixed(2))
+      : 0;
     const kgMerma = Number(((areaDesperdicioM2 * item.gramajeTotalCapa) / 1000).toFixed(2));
     desgloseMermaPorCapa.push({
       idMaterial: item.idMaterial,
