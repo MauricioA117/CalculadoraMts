@@ -65,13 +65,8 @@
 }
 
 :root {
-  /* Fondo del vidrio: degradado de marca, sin foto */
-  --fondo-vidrio:
-    radial-gradient(45% 55% at 12% 18%, rgb(79 158 165 / 0.85), transparent 70%),
-    radial-gradient(40% 50% at 88% 12%, rgb(140 195 200 / 0.75), transparent 70%),
-    radial-gradient(55% 60% at 75% 85%, rgb(39 101 108 / 0.9), transparent 70%),
-    radial-gradient(45% 50% at 20% 90%, rgb(216 154 147 / 0.45), transparent 70%),
-    linear-gradient(160deg, #dceeef, #8cc3c8 45%, #1f555b);
+  /* Fondo del vidrio: foto de la prensa HP Indigo */
+  --fondo-vidrio: url('/fondos/indigo-200k.webp');
 }
 
 @layer base {
